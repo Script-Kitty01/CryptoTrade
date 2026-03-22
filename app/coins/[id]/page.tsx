@@ -9,17 +9,60 @@ import Converter from "@/components/converter";
 const Page = async ({ params }: NextPageProps) => {
   const { id } = await params;
 
-  const [coinData, coinOHLCData] = await Promise.all([
-    fetcher<CoinDetailsData>(`/coins/${id}`, {
-      dex_pair_format: "contract_address",
-    }),
-    fetcher<OHLCData>(`/coins/${id}/ohlc`, {
-      vs_currency: "usd",
-      days: 1,
-      interval: "hourly",
-      precision: "full",
-    }),
-  ]);
+  let coinData: CoinDetailsData;
+  let coinOHLCData: OHLCData;
+
+  try {
+    [coinData, coinOHLCData] = await Promise.all([
+      fetcher<CoinDetailsData>(
+        `/coins/${id}`,
+        { dex_pair_format: "contract_address" },
+        300,
+      ),
+      fetcher<OHLCData>(
+        `/coins/${id}/ohlc`,
+        {
+          vs_currency: "usd",
+          days: 1,
+          interval: "hourly",
+          precision: "full",
+        },
+        300,
+      ),
+    ]);
+  } catch (error) {
+    console.error(`[coin/${id}] fetch error:`, error);
+    const isRateLimited =
+      error instanceof Error && error.message === "RATE_LIMITED";
+    const isNotFound = error instanceof Error && error.message.includes("404");
+
+    return (
+      <main
+        id="coin-details-page"
+        className="flex items-center justify-center min-h-96"
+      >
+        <div className="text-center space-y-3">
+          <p className="text-xl font-semibold text-red-500">
+            {isRateLimited
+              ? "Rate limit reached"
+              : isNotFound
+                ? "Coin not found"
+                : "Failed to load coin data"}
+          </p>
+          <p className="text-purple-100 text-sm">
+            {isRateLimited
+              ? "Too many requests. Please wait a moment and try again."
+              : isNotFound
+                ? `No coin found with ID "${id}".`
+                : "Something went wrong. Please try again later."}
+          </p>
+          <Link href="/coins" className="text-green-500 underline text-sm">
+            Browse all coins
+          </Link>
+        </div>
+      </main>
+    );
+  }
 
   const platform = coinData.asset_platform_id
     ? coinData.detail_platforms?.[coinData.asset_platform_id]

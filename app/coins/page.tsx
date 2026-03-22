@@ -12,13 +12,40 @@ const Coins = async ({ searchParams }: NextPageProps) => {
   const currentPage = Number(page) || 1;
   const perPage = 10;
 
-  const coinsData = await fetcher<CoinMarketData[]>("/coins/markets", {
-    vs_currency: "usd",
-    order: "market_cap_desc",
-    per_page: perPage,
-    page: currentPage,
-    sparkline: false,
-  });
+  let coinsData: CoinMarketData[] = [];
+
+  try {
+    coinsData = await fetcher<CoinMarketData[]>(
+      "/coins/markets",
+      {
+        vs_currency: "usd",
+        order: "market_cap_desc",
+        per_page: perPage,
+        page: currentPage,
+        sparkline: false,
+      },
+      300,
+    );
+  } catch (error) {
+    const isRateLimited =
+      error instanceof Error && error.message === "RATE_LIMITED";
+    return (
+      <main id="coins-page">
+        <div className="content flex items-center justify-center min-h-96">
+          <div className="text-center space-y-3">
+            <p className="text-xl font-semibold text-red-500">
+              {isRateLimited ? "Rate limit reached" : "Failed to load coins"}
+            </p>
+            <p className="text-purple-100 text-sm">
+              {isRateLimited
+                ? "Too many requests. Please wait a moment and refresh."
+                : "Something went wrong. Please try again later."}
+            </p>
+          </div>
+        </div>
+      </main>
+    );
+  }
 
   const columns: DataTableColumn<CoinMarketData>[] = [
     {

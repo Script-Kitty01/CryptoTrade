@@ -13,7 +13,7 @@ const TrendingCoins = async () => {
     trendingCoins = await fetcher<{ coins: TrendingCoin[] }>(
       "/search/trending",
       undefined,
-      300,
+      600,
     );
   } catch (error) {
     console.error("Error fetching trending coins:", error);

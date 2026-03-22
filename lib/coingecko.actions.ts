@@ -2,17 +2,17 @@
 
 import qs from "query-string";
 
-const BASE_URL = process.env.COINGECKO_BASE_URL;
-const API_KEY = process.env.COINGECKO_API_KEY;
-
-if (!BASE_URL) throw new Error("Could not get base url");
-if (!API_KEY) throw new Error("Could not get api key");
-
 export async function fetcher<T>(
   endpoint: string,
   params?: QueryParams,
-  revalidate = 60,
+  revalidate = 300,
 ): Promise<T> {
+  const BASE_URL = process.env.COINGECKO_BASE_URL;
+  const API_KEY = process.env.COINGECKO_API_KEY;
+
+  if (!BASE_URL) throw new Error("COINGECKO_BASE_URL is not set");
+  if (!API_KEY) throw new Error("COINGECKO_API_KEY is not set");
+
   const url = qs.stringifyUrl(
     {
       url: `${BASE_URL}/${endpoint}`,
@@ -21,21 +21,29 @@ export async function fetcher<T>(
     { skipEmptyString: true, skipNull: true },
   );
 
+  // Demo keys use x-cg-demo-api-key, Pro keys use x-cg-pro-api-key
+  const apiKeyHeader = API_KEY.startsWith("CG-")
+    ? "x-cg-demo-api-key"
+    : "x-cg-pro-api-key";
+
   const response = await fetch(url, {
     headers: {
-      "x-cg-pro-api-key": API_KEY,
+      [apiKeyHeader]: API_KEY,
       "Content-Type": "application/json",
-    } as Record<string, string>,
+    },
     next: { revalidate },
   });
+
+  if (response.status === 429) {
+    throw new Error("RATE_LIMITED");
+  }
 
   if (!response.ok) {
     const errorBody: CoinGeckoErrorBody = await response
       .json()
       .catch(() => ({}));
-
     throw new Error(
-      `API Error: ${response.status}: ${errorBody.error || response.statusText} `,
+      `API Error: ${response.status}: ${errorBody.error || response.statusText}`,
     );
   }
 
@@ -47,22 +55,17 @@ export async function getPools(
   network?: string | null,
   contractAddress?: string | null,
 ): Promise<PoolData> {
-  const fallback: PoolData = {
-    id: "",
-    address: "",
-    name: "",
-    network: "",
-  };
+  const fallback: PoolData = { id: "", address: "", name: "", network: "" };
 
   if (network && contractAddress) {
     try {
       const poolData = await fetcher<{ data: PoolData[] }>(
         `/onchain/networks/${network}/tokens/${contractAddress}/pools`,
+        undefined,
+        600,
       );
-
       return poolData.data?.[0] ?? fallback;
-    } catch (error) {
-      console.log(error);
+    } catch {
       return fallback;
     }
   }
@@ -71,8 +74,8 @@ export async function getPools(
     const poolData = await fetcher<{ data: PoolData[] }>(
       "/onchain/search/pools",
       { query: id },
+      600,
     );
-
     return poolData.data?.[0] ?? fallback;
   } catch {
     return fallback;
