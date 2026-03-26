@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ChronoTrust — System Flow</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #0f1117;
+        color: #e2e8f0;
+        font-family: "Segoe UI", sans-serif;
+        overflow-x: hidden;
+      }
+
+      h1 {
+        text-align: center;
+        padding: 28px 0 8px;
+        font-size: 1.6rem;
+        color: #a78bfa;
+        letter-spacing: 1px;
+      }
+      p.sub {
+        text-align: center;
+        color: #64748b;
+        font-size: 0.85rem;
+        margin-bottom: 32px;
+      }
+
+      .canvas {
+        position: relative;
+        width: 1300px;
+        margin: 0 auto;
+        height: 980px;
+      }
+
+      /* ── layers ── */
+      .layer {
+        position: absolute;
+        border-radius: 14px;
+        border: 1px solid;
+        padding: 10px 14px 14px;
+      }
+      .layer-title {
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+        opacity: 0.7;
+      }
+      .nodes {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      /* layer colours */
+      .l-external {
+        background: #1a1f2e;
+        border-color: #334155;
+        top: 20px;
+        left: 20px;
+        width: 580px;
+      }
+      .l-ingestion {
+        background: #1a1f2e;
+        border-color: #334155;
+        top: 20px;
+        left: 620px;
+        width: 660px;
+      }
+      .l-storage {
+        background: #1a1f2e;
+        border-color: #334155;
+        top: 160px;
+        left: 20px;
+        width: 580px;
+      }
+      .l-analysis {
+        background: #1a1f2e;
+        border-color: #334155;
+        top: 160px;
+        left: 620px;
+        width: 660px;
+      }
+      .l-scoring {
+        background: #1a1f2e;
+        border-color: #334155;
+        top: 340px;
+        left: 20px;
+        width: 1260px;
+      }
+      .l-django {
+        background: #1a1f2e;
+        border-color: #334155;
+        top: 490px;
+        left: 20px;
+        width: 580px;
+      }
+      .l-frontend {
+        background: #1a1f2e;
+        border-color: #334155;
+        top: 490px;
+        left: 620px;
+        width: 660px;
+      }
+      .l-user {
+        background: #1a1f2e;
+        border-color: #334155;
+        top: 720px;
+        left: 20px;
+        width: 1260px;
+      }
+
+      /* node cards */
+      .node {
+        border-radius: 10px;
+        padding: 10px 14px;
+        font-size: 0.78rem;
+        font-weight: 600;
+        text-align: center;
+        min-width: 110px;
+        cursor: default;
+        transition:
+          transform 0.15s,
+          box-shadow 0.15s;
+        line-height: 1.4;
+        position: relative;
+      }
+      .node:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      }
+      .node small {
+        display: block;
+        font-weight: 400;
+        font-size: 0.68rem;
+        opacity: 0.75;
+        margin-top: 2px;
+      }
+
+      /* node colour themes */
+      .n-api {
+        background: #1e3a5f;
+        border: 1px solid #3b82f6;
+        color: #93c5fd;
+      }
+      .n-task {
+        background: #1e3a5f;
+        border: 1px solid #6366f1;
+        color: #a5b4fc;
+      }
+      .n-db {
+        background: #1a2e1a;
+        border: 1px solid #22c55e;
+        color: #86efac;
+      }
+      .n-ai {
+        background: #2d1a3a;
+        border: 1px solid #a855f7;
+        color: #d8b4fe;
+      }
+      .n-score {
+        background: #3a2a0a;
+        border: 1px solid #f59e0b;
+        color: #fcd34d;
+      }
+      .n-django {
+        background: #1a2e2e;
+        border: 1px solid #14b8a6;
+        color: #5eead4;
+      }
+      .n-frontend {
+        background: #1e2a1e;
+        border: 1px solid #4ade80;
+        color: #86efac;
+      }
+      .n-user {
+        background: #2a1a1a;
+        border: 1px solid #f87171;
+        color: #fca5a5;
+      }
+
+      /* layer title colours */
+      .l-external .layer-title {
+        color: #3b82f6;
+      }
+      .l-ingestion .layer-title {
+        color: #6366f1;
+      }
+      .l-storage .layer-title {
+        color: #22c55e;
+      }
+      .l-analysis .layer-title {
+        color: #a855f7;
+      }
+      .l-scoring .layer-title {
+        color: #f59e0b;
+      }
+      .l-django .layer-title {
+        color: #14b8a6;
+      }
+      .l-frontend .layer-title {
+        color: #4ade80;
+      }
+      .l-user .layer-title {
+        color: #f87171;
+      }
+
+      /* SVG arrows */
+      svg.arrows {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1300px;
+        height: 980px;
+        pointer-events: none;
+      }
+
+      /* legend */
+      .legend {
+        display: flex;
+        gap: 24px;
+        justify-content: center;
+        padding: 20px 0 40px;
+        flex-wrap: wrap;
+      }
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.75rem;
+        color: #94a3b8;
+      }
+      .legend-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>ChronoTrust — System Architecture</h1>
+    <p class="sub">
+      Temporal Causal Inference for Crypto Purchase Intent Verification
+    </p>
+
+    <div style="width: 1300px; margin: 0 auto; position: relative">
+      <div class="canvas" id="canvas">
+        <!-- SVG arrows drawn on top -->
+        <svg class="arrows" id="arrows">
+          <defs>
+            <marker
+              id="arr"
+              markerWidth="8"
+              markerHeight="8"
+              refX="6"
+              refY="3"
+              orient="auto"
+            >
+              <path d="M0,0 L0,6 L8,3 z" fill="#475569" />
+            </marker>
+            <marker
+              id="arr-yellow"
+              markerWidth="8"
+              markerHeight="8"
+              refX="6"
+              refY="3"
+              orient="auto"
+            >
+              <path d="M0,0 L0,6 L8,3 z" fill="#f59e0b" />
+            </marker>
+            <marker
+              id="arr-green"
+              markerWidth="8"
+              markerHeight="8"
+              refX="6"
+              refY="3"
+              orient="auto"
+            >
+              <path d="M0,0 L0,6 L8,3 z" fill="#22c55e" />
+            </marker>
+          </defs>
+
+          <!-- External → Ingestion (horizontal) -->
+          <line
+            x1="600"
+            y1="70"
+            x2="618"
+            y2="70"
+            stroke="#3b82f6"
+            stroke-width="1.5"
+            marker-end="url(#arr)"
+          />
+
+          <!-- External layer → Storage (down) -->
+          <line
+            x1="300"
+            y1="148"
+            x2="300"
+            y2="158"
+            stroke="#475569"
+            stroke-width="1.5"
+            marker-end="url(#arr)"
+          />
+
+          <!-- Ingestion → Analysis (down) -->
+          <line
+            x1="950"
+            y1="148"
+            x2="950"
+            y2="158"
+            stroke="#475569"
+            stroke-width="1.5"
+            marker-end="url(#arr)"
+          />
+
+          <!-- Storage → Analysis (horizontal) -->
+          <line
+            x1="600"
+            y1="240"
+            x2="618"
+            y2="240"
+            stroke="#475569"
+            stroke-width="1.5"
+            marker-end="url(#arr)"
+          />
+
+          <!-- Storage + Analysis → Scoring (down) -->
+          <line
+            x1="300"
+            y1="328"
+            x2="300"
+            y2="338"
+            stroke="#f59e0b"
+            stroke-width="1.5"
+            marker-end="url(#arr-yellow)"
+          />
+          <line
+            x1="950"
+            y1="328"
+            x2="950"
+            y2="338"
+            stroke="#f59e0b"
+            stroke-width="1.5"
+            marker-end="url(#arr-yellow)"
+          />
+
+          <!-- Scoring → Django (down) -->
+          <line
+            x1="300"
+            y1="478"
+            x2="300"
+            y2="488"
+            stroke="#14b8a6"
+            stroke-width="1.5"
+            marker-end="url(#arr)"
+          />
+
+          <!-- Scoring → Frontend (down) -->
+          <line
+            x1="950"
+            y1="478"
+            x2="950"
+            y2="488"
+            stroke="#22c55e"
+            stroke-width="1.5"
+            marker-end="url(#arr-green)"
+          />
+
+          <!-- Django ↔ Frontend (horizontal bidirectional) -->
+          <line
+            x1="600"
+            y1="600"
+            x2="618"
+            y2="600"
+            stroke="#475569"
+            stroke-width="1.5"
+            marker-end="url(#arr)"
+          />
+          <line
+            x1="622"
+            y1="615"
+            x2="604"
+            y2="615"
+            stroke="#475569"
+            stroke-width="1.5"
+            marker-end="url(#arr)"
+          />
+
+          <!-- Django → User (down) -->
+          <line
+            x1="300"
+            y1="708"
+            x2="300"
+            y2="718"
+            stroke="#f87171"
+            stroke-width="1.5"
+            marker-end="url(#arr)"
+          />
+
+          <!-- Frontend → User (down) -->
+          <line
+            x1="950"
+            y1="708"
+            x2="950"
+            y2="718"
+            stroke="#f87171"
+            stroke-width="1.5"
+            marker-end="url(#arr)"
+          />
+
+          <!-- User → Frontend (feedback loop, curved) -->
+          <path
+            d="M 700,800 Q 700,860 950,860 Q 1200,860 1200,720"
+            stroke="#f87171"
+            stroke-width="1.5"
+            fill="none"
+            stroke-dasharray="5,4"
+            marker-end="url(#arr)"
+          />
+        </svg>
+
+        <!-- EXTERNAL DATA SOURCES -->
+        <div class="layer l-external">
+          <div class="layer-title">① External Data Sources</div>
+          <div class="nodes">
+            <div class="node n-api">
+              CoinGecko API<small>Price · OHLCV · Market Cap</small>
+            </div>
+            <div class="node n-api">
+              Reddit API<small>PRAW · Posts · Account age</small>
+            </div>
+            <div class="node n-api">
+              CryptoPanic API<small>News headlines · 50+ sources</small>
+            </div>
+            <div class="node n-api">
+              Whale Alert API<small>On-chain large transfers</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- INGESTION -->
+        <div class="layer l-ingestion">
+          <div class="layer-title">
+            ② Ingestion Layer — Celery Beat · every 5 min
+          </div>
+          <div class="nodes">
+            <div class="node n-task">
+              Price Collector<small>Celery Task</small>
+            </div>
+            <div class="node n-task">
+              Reddit Collector<small>Celery Task</small>
+            </div>
+            <div class="node n-task">
+              News Collector<small>Celery Task</small>
+            </div>
+            <div class="node n-task">
+              Whale Collector<small>Celery Task</small>
+            </div>
+            <div class="node n-task">
+              Redis Broker<small>Task Queue · Cache</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- STORAGE -->
+        <div class="layer l-storage">
+          <div class="layer-title">③ Storage Layer</div>
+          <div class="nodes">
+            <div class="node n-db">
+              TimescaleDB<small
+                >Time-series signals · price ticks · social volume</small
+              >
+            </div>
+            <div class="node n-db">
+              Neo4j<small>Causal influence graph · event → price edges</small>
+            </div>
+            <div class="node n-db">
+              Redis Cache<small>Hot data · session store</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- ANALYSIS -->
+        <div class="layer l-analysis">
+          <div class="layer-title">④ Analysis Layer — Async Celery Tasks</div>
+          <div class="nodes">
+            <div class="node n-ai">
+              FinBERT<small>HuggingFace · Financial sentiment NLP</small>
+            </div>
+            <div class="node n-ai">
+              Granger Causality<small>statsmodels · social → price test</small>
+            </div>
+            <div class="node n-ai">
+              Account Clustering<small
+                >scikit-learn · coordinated detection</small
+              >
+            </div>
+            <div class="node n-ai">
+              Causal Graph Builder<small>Neo4j edge writer</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- SCORING -->
+        <div class="layer l-scoring">
+          <div class="layer-title">⑤ Scoring Engine</div>
+          <div class="nodes">
+            <div class="node n-score">
+              Manipulation Event Detector<small
+                >Flags coordinated campaigns</small
+              >
+            </div>
+            <div class="node n-score">
+              Exposure Window Calculator<small
+                >48hr lookback · user timeline cross-ref</small
+              >
+            </div>
+            <div class="node n-score">
+              User Activity Logger<small>Timestamps in-app actions</small>
+            </div>
+            <div class="node n-score">
+              Manipulation Score Generator<small
+                >0–100 · with evidence breakdown</small
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- DJANGO -->
+        <div class="layer l-django">
+          <div class="layer-title">⑥ Django Backend</div>
+          <div class="nodes">
+            <div class="node n-django">
+              Django REST Framework<small>API endpoints</small>
+            </div>
+            <div class="node n-django">
+              Django Channels<small>WebSocket · live score push</small>
+            </div>
+            <div class="node n-django">
+              SimpleJWT<small>Auth · token management</small>
+            </div>
+            <div class="node n-django">Daphne<small>ASGI server</small></div>
+          </div>
+        </div>
+
+        <!-- FRONTEND -->
+        <div class="layer l-frontend">
+          <div class="layer-title">⑦ Next.js Frontend</div>
+          <div class="nodes">
+            <div class="node n-frontend">
+              Coin Tracker UI<small>Existing · charts · pagination</small>
+            </div>
+            <div class="node n-frontend">
+              Purchase Intent Button<small>Triggers score request</small>
+            </div>
+            <div class="node n-frontend">
+              Report Card UI<small>Score · evidence · verdict</small>
+            </div>
+            <div class="node n-frontend">
+              Live Score Feed<small>WebSocket consumer</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- USER -->
+        <div class="layer l-user">
+          <div class="layer-title">⑧ User</div>
+          <div class="nodes">
+            <div class="node n-user">
+              👤 Authenticated User<small
+                >Browses coins · clicks Purchase Intent · receives Manipulation
+                Exposure Score</small
+              >
+            </div>
+            <div class="node n-user">
+              Decision History<small
+                >Stored per user · used for bias pattern analysis over
+                time</small
+              >
+            </div>
+            <div class="node n-user">
+              Feedback Loop<small
+                >User actions feed back into exposure window calculator</small
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- canvas -->
+    </div>
+
+    <!-- Legend -->
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-dot" style="background: #3b82f6"></div>
+        External APIs
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background: #6366f1"></div>
+        Ingestion / Celery
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background: #22c55e"></div>
+        Databases
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background: #a855f7"></div>
+        AI / Analysis
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background: #f59e0b"></div>
+        Scoring Engine
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background: #14b8a6"></div>
+        Django Backend
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background: #4ade80"></div>
+        Next.js Frontend
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background: #f87171"></div>
+        User
+      </div>
+    </div>
+  </body>
+</html>

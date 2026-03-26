@@ -1,0 +1,327 @@
+================================================================
+        CHRONOTRUST — FINAL YEAR PROJECT DOCUMENT
+  Temporal Causal Inference for Crypto Purchase Intent Verification
+================================================================
+
+
+----------------------------------------------------------------
+1. PROJECT TITLE
+----------------------------------------------------------------
+
+ChronoTrust: A Framework for Measuring Manipulation Exposure
+in Cryptocurrency Purchase Decisions Using Temporal Causal Inference
+
+
+----------------------------------------------------------------
+2. AIM
+----------------------------------------------------------------
+
+To design and develop an end-to-end web application that detects
+coordinated market manipulation campaigns in cryptocurrency markets
+and quantifies the degree to which an individual user's purchase
+intent was causally influenced by those campaigns — producing a
+Manipulation Exposure Score (0–100) backed by temporal causal
+analysis.
+
+
+----------------------------------------------------------------
+3. PROBLEM STATEMENT
+----------------------------------------------------------------
+
+Cryptocurrency markets are frequently targeted by coordinated
+pump-and-dump schemes orchestrated through social media platforms.
+Existing research detects manipulation at the market level, after
+the fact. No existing system traces the causal chain from a
+manipulation event all the way to an individual user's purchase
+decision and measures their exposure to that manipulation in
+real time.
+
+This project addresses that gap.
+
+
+----------------------------------------------------------------
+4. RESEARCH QUESTION
+----------------------------------------------------------------
+
+Can a user's cryptocurrency purchase intent be quantifiably linked
+to upstream manipulation events using temporal causal analysis,
+and can this linkage be measured and presented in real time as
+an actionable risk score?
+
+
+----------------------------------------------------------------
+5. OBJECTIVES
+----------------------------------------------------------------
+
+1. Continuously ingest real-time price, social media, news, and
+   on-chain data from multiple sources.
+
+2. Detect coordinated inauthentic behavior in social media posts
+   using account clustering and behavioral pattern analysis.
+
+3. Apply Granger Causality testing to determine whether social
+   activity causally precedes price movements (not the reverse).
+
+4. Build a causal influence graph linking social events to price
+   movements using a graph database.
+
+5. Track user activity within the application and cross-reference
+   it against detected manipulation events.
+
+6. Generate a Manipulation Exposure Score for each purchase intent
+   action with a full evidence breakdown.
+
+7. Validate the score against historical pump-and-dump events
+   where outcomes are known.
+
+
+----------------------------------------------------------------
+6. SCOPE
+----------------------------------------------------------------
+
+- Covers Bitcoin, Ethereum, Dogecoin, and top 20 coins by market cap
+- Data sources: Reddit, CryptoPanic news aggregator, Whale Alert
+- Exposure window: 48-hour lookback from point of purchase intent
+- Users must be authenticated to receive a score
+- The system advises, it does not execute trades
+
+
+----------------------------------------------------------------
+7. TECH STACK — COMPLETE LIST
+----------------------------------------------------------------
+
+FRONTEND
+--------
+- Next.js 15          (React framework, existing project base)
+- TypeScript          (type safety)
+- Tailwind CSS        (styling)
+- shadcn/ui           (UI component library)
+
+BACKEND
+-------
+- Python 3.12
+- Django 5.x          (core web framework — required)
+- Django REST Framework (DRF)   (API layer)
+- Django Channels     (WebSocket support for live score updates)
+- Daphne              (ASGI server to run Django Channels)
+
+TASK QUEUE & SCHEDULING
+-----------------------
+- Celery              (async task processing)
+- Celery Beat         (scheduled polling every 5 minutes)
+- Redis               (message broker for Celery + caching layer)
+
+DATABASES
+---------
+- TimescaleDB         (PostgreSQL extension for time-series data —
+                       stores price ticks, social signal volumes,
+                       news events with timestamps)
+- Neo4j Community Ed. (graph database — stores causal influence
+                       graphs between social events and price movements)
+- Redis               (also used as hot cache for frequent queries)
+
+AI / ANALYSIS LAYER
+-------------------
+- statsmodels         (Granger Causality testing on time-series)
+- FinBERT             (HuggingFace Transformers — financial domain
+                       sentiment NLP model, fine-tuned on financial text)
+- scikit-learn        (account clustering for coordinated behavior
+                       detection — KMeans / DBSCAN)
+- pandas              (time-series data manipulation)
+- numpy               (numerical operations)
+
+DATA INGESTION APIs
+-------------------
+- CoinGecko API       (price, OHLCV, market cap — FREE, already integrated)
+- PRAW                (Reddit API wrapper — FREE)
+- CryptoPanic API     (crypto news aggregator, 50+ sources — FREE tier)
+- Whale Alert API     (on-chain large transaction tracking — FREE tier)
+
+AUTHENTICATION & SECURITY
+--------------------------
+- djangorestframework-simplejwt  (JWT authentication)
+- django-cors-headers            (CORS for Next.js <-> Django)
+
+INFRASTRUCTURE & DEVOPS
+------------------------
+- Docker              (containerization)
+- Docker Compose      (orchestrates Django, Redis, TimescaleDB, Neo4j)
+- python-decouple     (environment variable management)
+
+COST SUMMARY
+------------
+- All libraries and frameworks: FREE (open source)
+- TimescaleDB: FREE (open source, Docker image)
+- Neo4j Community Edition: FREE
+- Redis: FREE (self-hosted via Docker)
+- CoinGecko API: FREE (demo key)
+- PRAW / Reddit API: FREE
+- CryptoPanic API: FREE tier
+- Whale Alert API: FREE tier (1 req/min, sufficient for research)
+- Twitter/X API: NOT USED (paid only, dropped from scope)
+- Total estimated cost: $0
+
+
+----------------------------------------------------------------
+8. SYSTEM ARCHITECTURE OVERVIEW
+----------------------------------------------------------------
+
+External APIs
+    |
+    v
+Ingestion Layer (Celery Beat — every 5 min)
+    |
+    v
+Storage Layer (TimescaleDB + Neo4j + Redis)
+    |
+    v
+Analysis Layer (FinBERT + Granger Causality + Account Clustering)
+    |
+    v
+Causal Graph Builder (Neo4j edges: social event -> price movement)
+    |
+    v
+Scoring Engine
+  - Manipulation Event Detector
+  - Exposure Window Calculator (48hr lookback)
+  - User Activity Logger (in-app action timestamps)
+  - Manipulation Score Generator (0-100)
+    |
+    v
+Django Backend (DRF REST API + Django Channels WebSocket)
+    |
+    v
+Next.js Frontend (Coin Tracker + Purchase Intent + Report Card UI)
+    |
+    v
+User receives Manipulation Exposure Score with evidence
+
+
+----------------------------------------------------------------
+9. MANIPULATION EXPOSURE SCORE — EXPLAINED
+----------------------------------------------------------------
+
+When a user clicks "Analyze Purchase Intent" on a coin, the system:
+
+Step 1 — Looks back 48 hours in TimescaleDB for that coin's signals
+Step 2 — Checks if any manipulation events fired (coordinated posts,
+          whale movements, news spikes)
+Step 3 — Runs Granger Causality test: did social activity cause the
+          price move, or did price move cause social activity?
+Step 4 — Cross-references with the user's in-app activity log to
+          determine if they were active during or after the signal
+Step 5 — Outputs a score with full evidence breakdown
+
+Example Output:
+  Coin: DOGE
+  Score: 78 / 100 — HIGH RISK
+  - 47 coordinated Reddit posts detected 16 hours before your session
+  - 89% of posting accounts created within 2 weeks
+  - Granger causality confirmed: posts caused price movement (p < 0.05)
+  - No organic market driver found
+  - Verdict: High probability your decision was shaped by a
+    coordinated campaign. Recommended: wait 48 hours and reassess.
+
+
+----------------------------------------------------------------
+10. RESEARCH CONTRIBUTION
+----------------------------------------------------------------
+
+Existing work detects manipulation at the market level.
+This project is the first end-to-end system to:
+
+  a) Trace the causal chain from a social manipulation event
+     all the way to an individual user's purchase decision
+
+  b) Quantify that individual's exposure using temporal causal
+     analysis (Granger Causality)
+
+  c) Present the result as a real-time actionable score with
+     interpretable evidence
+
+This sits at the intersection of:
+  - Causal inference (not just correlation)
+  - Information provenance tracking
+  - Behavioral economics in digital markets
+  - Real-time financial fraud detection
+
+
+----------------------------------------------------------------
+11. EVALUATION CRITERIA
+----------------------------------------------------------------
+
+1. Technical Completeness
+   - All system components functional end-to-end
+   - Real-time data ingestion working
+   - Score generated within acceptable latency
+
+2. Research Validity
+   - Granger Causality tests statistically sound (p-value reporting)
+   - Backtested against minimum 10 known historical pump-and-dump events
+   - Score correlation with actual bad outcomes measured
+
+3. Novelty
+   - Individual exposure measurement not present in existing literature
+   - Multi-source temporal causal framework is original contribution
+
+4. System Design
+   - Justified use of TimescaleDB for time-series
+   - Justified use of Neo4j for causal graph structure
+   - Scalable ingestion pipeline via Celery
+
+5. Documentation & Reproducibility
+   - Docker Compose setup for full local reproduction
+   - Research methodology clearly documented
+   - Dataset of manipulation events published with project
+
+
+----------------------------------------------------------------
+12. KEY REFERENCES
+----------------------------------------------------------------
+
+1. Granger Causality & Social Media -> Price:
+   https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4706410
+
+2. Nonlinear Causality Detection (Royal Society):
+   https://royalsocietypublishing.org/doi/10.1098/rsos.200863
+
+3. Forecasting with Granger Causality (Springer):
+   https://link.springer.com/chapter/10.1007/978-981-19-8234-7_16
+
+4. Crypto News & Influencer Causality (arXiv):
+   https://arxiv.org/html/2411.05577v1
+
+5. Market Manipulation — Social + Blockchain (ACM):
+   https://dl.acm.org/doi/10.1145/3643812
+
+6. Anatomy of Pump-and-Dump (ResearchGate):
+   https://www.researchgate.net/publication/329206760
+
+7. Quantifying Pump-and-Dump Dynamics (arXiv 2025):
+   https://arxiv.org/html/2504.15790v1
+
+8. Real-Time Pump-and-Dump Detection (arXiv):
+   https://arxiv.org/html/2412.18848v1
+
+9. FinBERT — Original Paper (ResearchGate):
+   https://www.researchgate.net/publication/350754322
+
+10. FinBERT — Wiley Journal:
+    https://onlinelibrary.wiley.com/doi/full/10.1111/1911-3846.12832
+
+11. Coordinated Inauthentic Behavior Detection (arXiv):
+    https://arxiv.org/html/2601.00400v1
+
+12. SAGE-FIN: GNN + Granger Causality for Fraud (arXiv):
+    https://arxiv.org/html/2507.01980v1
+
+13. Digital Market Manipulation Theory (ResearchGate):
+    https://www.researchgate.net/publication/272300987
+
+14. Behavioral Manipulation Model (Brookings):
+    https://www.brookings.edu/articles/a-model-of-behavioral-manipulation
+
+
+================================================================
+                     END OF DOCUMENT
+================================================================
