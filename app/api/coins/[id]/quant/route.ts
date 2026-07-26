@@ -13,7 +13,7 @@ export async function GET(
       fetcher<CoinDetailsData>(`/coins/${id}`, { localization: false }, 300),
       fetcher<OHLCData[]>(
         `/coins/${id}/ohlc`,
-        { vs_currency: "usd", days: 2, precision: "full" },
+        { vs_currency: "usd", days: 7, precision: "full" },
         300,
       ),
     ]);

@@ -42,7 +42,7 @@ export async function GET() {
         try {
           const ohlc = await fetcher<OHLCData[]>(
             `/coins/${coin.id}/ohlc`,
-            { vs_currency: "usd", days: 2, precision: "full" },
+            { vs_currency: "usd", days: 7, precision: "full" },
             300,
           );
           if (ohlc && ohlc.length >= 30) {

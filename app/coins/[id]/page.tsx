@@ -23,7 +23,7 @@ const Page = async ({ params }: NextPageProps) => {
         `/coins/${id}/ohlc`,
         {
           vs_currency: "usd",
-          days: 2,
+          days: 7,
           precision: "full",
         },
         300,
