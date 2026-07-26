@@ -10,26 +10,28 @@ const Page = async ({ params }: NextPageProps) => {
   const { id } = await params;
 
   let coinData: CoinDetailsData;
-  let coinOHLCData: OHLCData;
+  let coinOHLCData: OHLCData[] = [];
 
   try {
-    [coinData, coinOHLCData] = await Promise.all([
+    const [fetchedCoinData, fetchedOHLCData] = await Promise.all([
       fetcher<CoinDetailsData>(
         `/coins/${id}`,
         { dex_pair_format: "contract_address" },
         300,
       ),
-      fetcher<OHLCData>(
+      fetcher<OHLCData[]>(
         `/coins/${id}/ohlc`,
         {
           vs_currency: "usd",
           days: 1,
-          interval: "hourly",
           precision: "full",
         },
         300,
       ),
     ]);
+
+    coinData = fetchedCoinData;
+    coinOHLCData = fetchedOHLCData ?? [];
   } catch (error) {
     console.error(`[coin/${id}] fetch error:`, error);
     const isRateLimited =
@@ -56,7 +58,7 @@ const Page = async ({ params }: NextPageProps) => {
                 ? `No coin found with ID "${id}".`
                 : "Something went wrong. Please try again later."}
           </p>
-          <Link href="/coins" className="text-green-500 underline text-sm">
+          <Link href="/coins" className="text-pink-400 underline text-sm">
             Browse all coins
           </Link>
         </div>
@@ -108,9 +110,12 @@ const Page = async ({ params }: NextPageProps) => {
   return (
     <main id="coin-details-page">
       <section className="primary">
-        <LiveDataWrapper coinId={id} poolId={pool.id} coin={coinData}>
-          <h4>Exchange Listings</h4>
-        </LiveDataWrapper>
+        <LiveDataWrapper
+          coinId={id}
+          poolId={pool.id}
+          coin={coinData}
+          coinOHLCData={coinOHLCData}
+        />
       </section>
 
       <section className="secondary">

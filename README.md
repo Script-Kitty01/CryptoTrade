@@ -11,6 +11,8 @@ A modern cryptocurrency tracking platform built with Next.js, featuring real-tim
 - **Currency Converter** - Multi-currency conversion tool
 - **Live Trading Data** - Real-time trade feed and price updates
 - **Search Functionality** - Quick search across all cryptocurrencies
+- **AI Trend Analyzer** - Hybrid quant + local LLM analysis with signal, confidence, and reasoning
+- **Market Trends Page** - Ranked list of top coins by composite quant score
 - **Responsive Design** - Optimized for desktop and mobile devices
 
 ## Tech Stack
@@ -29,6 +31,12 @@ A modern cryptocurrency tracking platform built with Next.js, featuring real-tim
 - **CoinGecko API** - Cryptocurrency market data
 - **WebSocket** - Real-time price and trade updates
 - **lightweight-charts** - High-performance candlestick charts
+
+### AI & Quant Analysis
+
+- **Ollama** - Local LLM inference (default model: Qwen3 8B)
+- **Custom quant engine** - SMA, EMA, RSI, MACD, Bollinger Bands, ATR, ADX, VWAP, OBV, CMF, MFI, Williams %R, ROC, momentum, volatility, Sharpe
+- **Structured JSON output** - Signal, confidence, summary, bullish/bearish factors, risk, reasoning
 
 ### Utilities
 
@@ -88,15 +96,30 @@ COINGECKO_BASE_URL=https://api.coingecko.com/api/v3
 COINGECKO_API_KEY=your_api_key_here
 NEXT_PUBLIC_COINGECKO_API_KEY=your_api_key_here
 NEXT_PUBLIC_COINGECKO_WEBSOCKET_URL=wss://stream.coingecko.com/v1
+
+# Local LLM (Ollama)
+OLLAMA_BASE_URL=http://localhost:11434
+OLLAMA_MODEL=qwen3:8b
+ENABLE_LLM_ANALYSIS=true
+OLLAMA_TIMEOUT_MS=30000
 ```
 
-4. Run the development server:
+4. (Optional) Install and run Ollama for AI analysis:
+
+```bash
+ollama pull qwen3:8b
+ollama serve
+```
+
+> If Ollama is not running, the app falls back to quant-only analysis automatically.
+
+5. Run the development server:
 
 ```bash
 npm run dev
 ```
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser.
+6. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Available Scripts
 
@@ -104,6 +127,7 @@ npm run dev
 - `npm run build` - Build for production
 - `npm run start` - Start production server
 - `npm run lint` - Run ESLint
+- `npm run test:run` - Run Vitest test suite
 
 ## Key Features Explained
 

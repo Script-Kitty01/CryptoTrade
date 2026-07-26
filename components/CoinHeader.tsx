@@ -65,7 +65,7 @@ const CoinHeader = ({
 
             <div
               className={cn("value", {
-                "text-green-500": stat.isUp,
+                "text-pink-400": stat.isUp,
                 "text-red-500": !stat.isUp,
               })}
             >

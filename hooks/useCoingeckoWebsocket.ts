@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export interface ExtendedPriceData {
   price: number;
   timestamp: number;
+  change24h?: number;
 }
 
 export interface Trade {
@@ -18,7 +19,7 @@ export type OHLCData = [number, number, number, number, number];
 interface UseCoingeckoWebsocketProps {
   coinId: string;
   poolId?: string;
-  liveInterval?: string;
+  liveInterval?: "1s" | "1m";
 }
 
 interface UseCoingeckoWebsocketReturn {
@@ -46,7 +47,7 @@ export function useCoingeckoWebsocket({
   const [ohlcv, setOhlcv] = useState<OHLCData | null>(null);
   const [isReady, setIsReady] = useState(false);
 
-  const connect = () => {
+  const connect = useCallback(() => {
     if (!WS_BASE) return;
 
     const ws = new WebSocket(WS_BASE);
@@ -62,29 +63,35 @@ export function useCoingeckoWebsocket({
       setIsReady(true);
 
       // Subscribe to channels
-      if (!subscribed.current.has("price")) {
-        send({ type: "subscribe", channel: "price", coinId });
-        subscribed.current.add("price");
-      }
-
-      if (!subscribed.current.has("trades")) {
-        send({ type: "subscribe", channel: "trades", coinId });
-        subscribed.current.add("trades");
-      }
-
-      if (!subscribed.current.has("ohlcv")) {
-        send({
+      const channels = [
+        { type: "subscribe", channel: "price", coinId },
+        { type: "subscribe", channel: "trades", coinId },
+        {
           type: "subscribe",
           channel: "ohlcv",
           coinId,
           interval: liveInterval,
-        });
-        subscribed.current.add("ohlcv");
-      }
+          ...(poolId ? { poolId } : {}),
+        },
+      ] as const;
+
+      channels.forEach((payload) => {
+        const key = `${payload.channel}-${payload.coinId}-${liveInterval}`;
+        if (!subscribed.current.has(key)) {
+          send(payload as unknown as Record<string, unknown>);
+          subscribed.current.add(key);
+        }
+      });
     };
 
     ws.onmessage = (event) => {
-      const msg = JSON.parse(event.data);
+      let msg: Record<string, unknown>;
+      try {
+        msg = JSON.parse(event.data);
+      } catch {
+        console.error("WebSocket received invalid JSON");
+        return;
+      }
 
       // Keepalive
       if (msg.type === "ping") {
@@ -94,17 +101,17 @@ export function useCoingeckoWebsocket({
 
       // Price updates
       if (msg.type === "price") {
-        setPrice(msg.data);
+        setPrice((msg.data as ExtendedPriceData | undefined) ?? null);
       }
 
       // Trades updates
       if (msg.type === "trade") {
-        setTrades((prev) => [msg.data, ...prev].slice(0, 50));
+        setTrades((prev) => [msg.data as Trade, ...prev].slice(0, 50));
       }
 
       // OHLC updates
       if (msg.type === "ohlcv") {
-        setOhlcv(msg.data);
+        setOhlcv((msg.data as OHLCData | undefined) ?? null);
       }
     };
 
@@ -115,22 +122,23 @@ export function useCoingeckoWebsocket({
     ws.onerror = (err) => {
       console.error("WebSocket error", err);
     };
-  };
+  }, [coinId, poolId, liveInterval]);
 
   useEffect(() => {
+    const subscribedSet = subscribed.current;
     connect();
 
     return () => {
       wsRef.current?.close();
-      subscribed.current.clear();
+      subscribedSet.clear();
     };
-  }, [coinId, poolId, liveInterval]);
+  }, [connect]);
 
-  const reconnect = () => {
+  const reconnect = useCallback(() => {
     wsRef.current?.close();
     subscribed.current.clear();
     connect();
-  };
+  }, [connect]);
 
   return {
     price,

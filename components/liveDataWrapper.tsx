@@ -7,9 +7,9 @@ import DataTable from "@/components/datatable";
 import { formatCurrency, timeAgo } from "@/lib/utils";
 import { useState } from "react";
 import CoinHeader from "./CoinHeader";
+import TrendAnalyzer from "./TrendAnalyzer";
 
 const LiveDataWrapper = ({
-  children,
   coinId,
   poolId,
   coin,
@@ -42,9 +42,7 @@ const LiveDataWrapper = ({
       header: "Buy/Sell",
       cellClassName: "type-cell",
       cell: (trade) => (
-        <span
-          className={trade.type === "b" ? "text-green-500" : "text-red-500"}
-        >
+        <span className={trade.type === "b" ? "text-pink-400" : "text-red-500"}>
           {trade.type === "b" ? "Buy" : "Sell"}
         </span>
       ),
@@ -85,6 +83,8 @@ const LiveDataWrapper = ({
           <h4>Trend Overview</h4>
         </CandlestickChart>
       </div>
+
+      <TrendAnalyzer coinId={coinId} />
 
       <Separator className="divider" />
 

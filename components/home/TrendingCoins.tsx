@@ -46,7 +46,7 @@ const TrendingCoins = async () => {
           <div
             className={cn(
               "price-change",
-              isTrendingUp ? "text-green-500" : "text-red-500",
+              isTrendingUp ? "text-pink-400" : "text-red-500",
             )}
           >
             <p className="flex items-center">

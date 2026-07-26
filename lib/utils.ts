@@ -42,8 +42,8 @@ export function trendingClasses(value: number) {
   const isTrendingUp = value > 0;
 
   return {
-    textClass: isTrendingUp ? "text-green-400" : "text-red-400",
-    bgClass: isTrendingUp ? "bg-green-500/10" : "bg-red-500/10",
+    textClass: isTrendingUp ? "text-pink-400" : "text-red-400",
+    bgClass: isTrendingUp ? "bg-pink-500/10" : "bg-red-500/10",
     iconClass: isTrendingUp ? "icon-up" : "icon-down",
   };
 }

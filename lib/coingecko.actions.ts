@@ -18,7 +18,7 @@ export async function fetcher<T>(
       url: `${BASE_URL}/${endpoint}`,
       query: params,
     },
-    { skipEmptyString: true, skipNull: true },
+    { skipEmptyString: true, skipNull: true, sort: () => 0 },
   );
 
   // Demo keys use x-cg-demo-api-key, Pro keys use x-cg-pro-api-key

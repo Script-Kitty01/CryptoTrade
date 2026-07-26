@@ -1,4 +1,4 @@
-type OHLCData = [number, number, number, number, number];
+type OHLCData = [number, number, number, number, number, number?];
 
 interface NextPageProps {
   params: Promise<{ [key: string]: string }>;
