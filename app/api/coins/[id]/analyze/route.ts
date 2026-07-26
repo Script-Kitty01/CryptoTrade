@@ -27,12 +27,12 @@ export async function GET(
       fetcher<CoinDetailsData>(`/coins/${id}`, { localization: false }, 300),
       fetcher<OHLCData[]>(
         `/coins/${id}/ohlc`,
-        { vs_currency: "usd", days: 1, precision: "full" },
+        { vs_currency: "usd", days: 2, precision: "full" },
         300,
       ),
     ]);
 
-    if (!ohlcData || ohlcData.length < 50) {
+    if (!ohlcData || ohlcData.length < 30) {
       return NextResponse.json(
         { error: "Insufficient OHLC data for analysis" },
         { status: 422 },

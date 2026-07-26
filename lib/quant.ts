@@ -530,11 +530,11 @@ export function computeQuantSnapshot(
   const sharpe20 = sharpe(closes, 20);
   const volTrend = volumeTrend(volumes);
 
-  const sma20 = sma(closes, 20);
-  const sma50 = sma(closes, 50);
-  const ema12 = ema(closes, 12);
-  const ema26 = ema(closes, 26);
-  const ema200 = ema(closes, 200);
+  const sma20 = sma(closes, Math.min(20, closes.length));
+  const sma50 = sma(closes, Math.min(50, closes.length));
+  const ema12 = ema(closes, Math.min(12, closes.length));
+  const ema26 = ema(closes, Math.min(26, closes.length));
+  const ema200 = ema(closes, Math.min(200, closes.length));
 
   const priceToSma20 =
     sma20 !== null && sma20 !== 0 ? (price - sma20) / sma20 : null;
