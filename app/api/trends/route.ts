@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { fetcher } from "@/lib/coingecko.actions";
+import { fetcher, withConcurrencyLimit } from "@/lib/coingecko.actions";
 import {
   computeQuantSnapshot,
   rankSnapshots,
@@ -35,23 +35,26 @@ export async function GET() {
       300,
     );
 
-    const snapshots: QuantSnapshot[] = [];
-
-    await Promise.all(
-      marketData.map(async (coin) => {
-        try {
-          const ohlc = await fetcher<OHLCData[]>(
-            `/coins/${coin.id}/ohlc`,
-            { vs_currency: "usd", days: 7, precision: "full" },
-            300,
-          );
-          if (ohlc && ohlc.length >= 30) {
-            snapshots.push(computeQuantSnapshot(coin, ohlc));
-          }
-        } catch (error) {
-          console.error(`[trends] skip ${coin.id}:`, error);
+    // Limit to 5 concurrent OHLC requests to avoid rate-limiting (demo API: ~30/min)
+    const tasks = marketData.map((coin) => async () => {
+      try {
+        const ohlc = await fetcher<OHLCData[]>(
+          `/coins/${coin.id}/ohlc`,
+          { vs_currency: "usd", days: 7, precision: "full" },
+          300,
+        );
+        if (ohlc && ohlc.length >= 30) {
+          return computeQuantSnapshot(coin, ohlc);
         }
-      }),
+      } catch (error) {
+        console.error(`[trends] skip ${coin.id}:`, error);
+      }
+      return null;
+    });
+
+    const results = await withConcurrencyLimit(tasks, 5);
+    const snapshots: QuantSnapshot[] = results.filter(
+      (r): r is QuantSnapshot => r !== null,
     );
 
     const ranked = rankSnapshots(snapshots);
