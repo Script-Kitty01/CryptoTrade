@@ -126,9 +126,12 @@ export function parseLLMResponse(text: string): LLMAnalysisResult | null {
     const validSignals = ["strong_buy", "buy", "hold", "sell", "strong_sell"];
     const validRisks = ["low", "medium", "high"];
 
-    const signal = validSignals.includes(parsed.signal)
-      ? parsed.signal
-      : "hold";
+    let rawSignal = parsed.signal;
+    if (rawSignal === "neutral") rawSignal = "hold";
+    if (rawSignal === "strong buy") rawSignal = "strong_buy";
+    if (rawSignal === "strong sell") rawSignal = "strong_sell";
+
+    const signal = validSignals.includes(rawSignal) ? rawSignal : "hold";
     const confidence =
       typeof parsed.confidence === "number"
         ? Math.max(0, Math.min(100, Math.round(parsed.confidence)))
@@ -226,6 +229,7 @@ export async function analyzeWithLLM(
         model: config.model,
         prompt: buildPrompt(snapshot),
         stream: false,
+        format: "json",
         options: {
           temperature: 0.3,
           num_predict: 512,

@@ -505,7 +505,9 @@ export function computeQuantSnapshot(
   const volumes = ohlc.map((c) => c[5] ?? 0);
   const price =
     closes[closes.length - 1] ??
-    ("current_price" in coin ? coin.current_price : coin.market_data.current_price.usd);
+    ("current_price" in coin
+      ? coin.current_price
+      : coin.market_data.current_price.usd);
 
   const rsi14 = rsi(closes, 14);
   const rsiValues: number[] = [];

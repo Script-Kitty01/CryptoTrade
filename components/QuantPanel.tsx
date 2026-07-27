@@ -10,6 +10,7 @@ interface QuantPanelProps {
   llm?: LLMAnalysisResult | null;
   loading?: boolean;
   error?: string | null;
+  timestamp?: number | null;
 }
 
 const signalConfig: Record<
@@ -92,11 +93,22 @@ function IndicatorGrid({ snapshot }: { snapshot: QuantSnapshot }) {
   );
 }
 
+function timeSince(ts: number): string {
+  const seconds = Math.floor((Date.now() - ts) / 1000);
+  if (seconds < 5) return "just now";
+  if (seconds < 60) return `${seconds}s ago`;
+  const minutes = Math.floor(seconds / 60);
+  if (minutes < 60) return `${minutes}m ago`;
+  const hours = Math.floor(minutes / 60);
+  return `${hours}h ago`;
+}
+
 export default function QuantPanel({
   snapshot,
   llm,
   loading,
   error,
+  timestamp,
 }: QuantPanelProps) {
   if (loading) {
     return (
@@ -148,9 +160,16 @@ export default function QuantPanel({
     <div className="quant-panel">
       <div className="quant-panel-header">
         <h4>AI Trend Analysis</h4>
-        <Badge variant="outline" className={config.className}>
-          {config.label}
-        </Badge>
+        <div className="flex items-center gap-2">
+          {timestamp && (
+            <span className="text-[11px] text-purple-100/60">
+              {timeSince(timestamp)}
+            </span>
+          )}
+          <Badge variant="outline" className={config.className}>
+            {config.label}
+          </Badge>
+        </div>
       </div>
 
       <div className="space-y-4">
@@ -199,6 +218,32 @@ export default function QuantPanel({
                 </ul>
               </div>
             )}
+
+            {/* Reasoning section */}
+            {llm.reasoning && llm.reasoning !== "No detailed reasoning available." && (
+              <div className="bg-dark-400/40 rounded-md px-3 py-2.5">
+                <p className="text-xs uppercase tracking-wider text-purple-100 mb-1">
+                  Reasoning
+                </p>
+                <p className="text-sm text-purple-100 leading-relaxed">
+                  {llm.reasoning}
+                </p>
+              </div>
+            )}
+
+            {/* Confidence explanation */}
+            {llm.confidenceExplanation &&
+              llm.confidenceExplanation !==
+                "Confidence based on strength and consistency of technical signals." && (
+                <div className="bg-dark-400/40 rounded-md px-3 py-2.5">
+                  <p className="text-xs uppercase tracking-wider text-purple-100 mb-1">
+                    Why this confidence?
+                  </p>
+                  <p className="text-sm text-purple-100 leading-relaxed">
+                    {llm.confidenceExplanation}
+                  </p>
+                </div>
+              )}
 
             <div className="flex items-center gap-2 text-xs text-purple-100">
               <span className="font-medium">Risk:</span>

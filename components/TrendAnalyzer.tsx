@@ -62,6 +62,7 @@ export default function TrendAnalyzer({ coinId }: TrendAnalyzerProps) {
       llm={data?.llm ?? null}
       loading={loading && !data}
       error={error}
+      timestamp={data?.timestamp ?? null}
     />
   );
 }
