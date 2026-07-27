@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 import { fetcher } from "@/lib/coingecko.actions";
-import { computeQuantSnapshot, rankSnapshots, QuantSnapshot } from "@/lib/quant";
+import {
+  computeQuantSnapshot,
+  rankSnapshots,
+  QuantSnapshot,
+} from "@/lib/quant";
 import { getLLMConfig } from "@/lib/llm";
 
 const cache = new Map<string, { data: unknown; expiresAt: number }>();
@@ -107,7 +111,12 @@ function fallbackMarketSummary(snapshots: QuantSnapshot[]): MarketSummary {
   return {
     marketBias: bias,
     summary: `Based on the top ${snapshots.length} coins by composite quant score, the market shows a ${bias} bias with ${risk} risk. ${buyCount} coins are bullish, ${sellCount} are bearish, and the rest are neutral.`,
-    keyTheme: bias === "bullish" ? "Risk-on" : bias === "bearish" ? "Risk-off" : "Mixed",
+    keyTheme:
+      bias === "bullish"
+        ? "Risk-on"
+        : bias === "bearish"
+          ? "Risk-off"
+          : "Mixed",
     riskLevel: risk,
     topSectors: [],
   };
@@ -175,10 +184,7 @@ export async function GET() {
     if (config.enabled) {
       try {
         const controller = new AbortController();
-        const timeout = setTimeout(
-          () => controller.abort(),
-          config.timeoutMs,
-        );
+        const timeout = setTimeout(() => controller.abort(), config.timeoutMs);
 
         const response = await fetch(`${config.baseUrl}/api/generate`, {
           method: "POST",

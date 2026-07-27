@@ -155,7 +155,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-dark-700 text-foreground;
+    @apply bg-dark-700 text-foreground pt-20;
   }
 }
 
@@ -184,41 +184,55 @@
     @apply bg-dark-400/60;
   }
 
-  header {
-    @apply border-b border-dark-400 h-18;
+  /* ── Floating Glass Navbar ── */
+  .glass-nav {
+    @apply fixed top-0 left-0 right-0 z-50 px-4 py-3;
+    pointer-events: none;
 
-    .inner {
-      @apply flex justify-between items-center h-full;
+    .glass-nav-inner {
+      @apply mx-auto max-w-360 flex items-center justify-between px-5 py-2.5 rounded-2xl;
+      pointer-events: auto;
+      background: rgba(15, 5, 12, 0.65);
+      backdrop-filter: blur(20px) saturate(140%);
+      -webkit-backdrop-filter: blur(20px) saturate(140%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow:
+        0 4px 24px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
 
-      .logo-link {
-        @apply flex items-center shrink-0;
+      &:hover {
+        border-color: rgba(255, 255, 255, 0.12);
+        box-shadow:
+          0 4px 32px rgba(0, 0, 0, 0.4),
+          inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      }
+    }
+
+    .logo-link {
+      @apply flex items-center shrink-0;
+    }
+
+    .logo {
+      @apply h-7 w-auto;
+    }
+
+    .glass-nav-links {
+      @apply flex items-center gap-1;
+
+      .nav-link {
+        @apply relative px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 text-purple-100/80 hover:text-white hover:bg-white/5;
       }
 
-      .logo {
-        @apply h-8 w-auto;
+      .nav-link.is-active {
+        @apply text-white bg-white/10;
       }
 
-      nav {
-        @apply flex h-full items-center;
+      .search-trigger {
+        @apply ml-2 flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 text-purple-100/80 hover:text-white hover:bg-white/5 bg-transparent border-0 cursor-pointer;
 
-        .nav-link {
-          @apply px-5 py-4 flex items-center transition-all hover:text-white font-medium h-full text-purple-100 cursor-pointer;
-        }
-
-        .nav-link.is-active {
-          @apply text-white;
-        }
-
-        .nav-link.is-home {
-          @apply max-sm:hidden;
-        }
-
-        .search-trigger {
-          @apply px-5 py-4 flex items-center gap-2 transition-all hover:text-white font-medium h-full text-purple-100 cursor-pointer bg-transparent border-0;
-
-          .kbd {
-            @apply pointer-events-none hidden sm:inline-flex h-5 select-none items-center gap-1 rounded border border-purple-600/50 bg-dark-400 px-1.5 font-mono text-[10px] font-medium opacity-80;
-          }
+        .kbd {
+          @apply pointer-events-none hidden sm:inline-flex h-5 select-none items-center gap-1 rounded-md border border-white/10 bg-white/5 px-1.5 font-mono text-[10px] font-medium text-purple-100/60;
         }
       }
     }

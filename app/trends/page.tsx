@@ -44,10 +44,22 @@ const signalClasses: Record<QuantSnapshot["signal"], string> = {
   strong_sell: "bg-red-600/20 text-red-500 border-red-600/30",
 };
 
-const biasConfig: Record<MarketSummaryData["marketBias"], { label: string; className: string }> = {
-  bullish: { label: "Bullish", className: "bg-green-500/20 text-green-400 border-green-500/30" },
-  bearish: { label: "Bearish", className: "bg-red-500/20 text-red-400 border-red-500/30" },
-  neutral: { label: "Neutral", className: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30" },
+const biasConfig: Record<
+  MarketSummaryData["marketBias"],
+  { label: string; className: string }
+> = {
+  bullish: {
+    label: "Bullish",
+    className: "bg-green-500/20 text-green-400 border-green-500/30",
+  },
+  bearish: {
+    label: "Bearish",
+    className: "bg-red-500/20 text-red-400 border-red-500/30",
+  },
+  neutral: {
+    label: "Neutral",
+    className: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
+  },
 };
 
 const riskConfig: Record<MarketSummaryData["riskLevel"], string> = {
@@ -92,9 +104,7 @@ export default function TrendsPage() {
       setData(json);
       setError(null);
     } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "Failed to load trends",
-      );
+      setError(err instanceof Error ? err.message : "Failed to load trends");
     } finally {
       setLoading(false);
     }
@@ -165,14 +175,23 @@ export default function TrendsPage() {
         <div className="bg-dark-500 rounded-xl border border-purple-600/20 p-5 space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <h3 className="text-lg font-semibold text-white">Market Summary</h3>
-              <Badge variant="outline" className={biasConfig[summary.marketSummary.marketBias].className}>
+              <h3 className="text-lg font-semibold text-white">
+                Market Summary
+              </h3>
+              <Badge
+                variant="outline"
+                className={
+                  biasConfig[summary.marketSummary.marketBias].className
+                }
+              >
                 {biasConfig[summary.marketSummary.marketBias].label}
               </Badge>
             </div>
             <div className="flex items-center gap-3 text-sm">
               <span className="text-purple-100">Risk:</span>
-              <span className={`font-semibold capitalize ${riskConfig[summary.marketSummary.riskLevel]}`}>
+              <span
+                className={`font-semibold capitalize ${riskConfig[summary.marketSummary.riskLevel]}`}
+              >
                 {summary.marketSummary.riskLevel}
               </span>
             </div>
@@ -199,8 +218,8 @@ export default function TrendsPage() {
           </div>
 
           <p className="text-[11px] text-purple-100/60">
-            Based on top {summary.coinCount} coins · {summary.totalAnalyzed} total analyzed ·{" "}
-            {timeSince(summary.timestamp)}
+            Based on top {summary.coinCount} coins · {summary.totalAnalyzed}{" "}
+            total analyzed · {timeSince(summary.timestamp)}
           </p>
         </div>
       )}
@@ -224,7 +243,8 @@ export default function TrendsPage() {
         </div>
 
         <div className="divide-y divide-purple-600/10">
-          {loading && !data && (
+          {loading &&
+            !data &&
             Array.from({ length: 8 }).map((_, i) => (
               <div
                 key={i}
@@ -250,8 +270,7 @@ export default function TrendsPage() {
                   <Skeleton className="h-4 w-12" />
                 </div>
               </div>
-            ))
-          )}
+            ))}
 
           {data && data.coins.length === 0 && (
             <div className="px-5 py-12 text-center">

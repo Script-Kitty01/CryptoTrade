@@ -220,16 +220,17 @@ export default function QuantPanel({
             )}
 
             {/* Reasoning section */}
-            {llm.reasoning && llm.reasoning !== "No detailed reasoning available." && (
-              <div className="bg-dark-400/40 rounded-md px-3 py-2.5">
-                <p className="text-xs uppercase tracking-wider text-purple-100 mb-1">
-                  Reasoning
-                </p>
-                <p className="text-sm text-purple-100 leading-relaxed">
-                  {llm.reasoning}
-                </p>
-              </div>
-            )}
+            {llm.reasoning &&
+              llm.reasoning !== "No detailed reasoning available." && (
+                <div className="bg-dark-400/40 rounded-md px-3 py-2.5">
+                  <p className="text-xs uppercase tracking-wider text-purple-100 mb-1">
+                    Reasoning
+                  </p>
+                  <p className="text-sm text-purple-100 leading-relaxed">
+                    {llm.reasoning}
+                  </p>
+                </div>
+              )}
 
             {/* Confidence explanation */}
             {llm.confidenceExplanation &&

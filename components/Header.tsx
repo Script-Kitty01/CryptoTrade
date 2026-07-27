@@ -98,8 +98,8 @@ const Header = () => {
 
   return (
     <>
-      <header>
-        <div className="main-container inner">
+      <header className="glass-nav">
+        <div className="glass-nav-inner">
           <Link href="/" className="logo-link">
             <Image
               src="/logo.svg"
@@ -110,26 +110,15 @@ const Header = () => {
               priority
             />
           </Link>
-          <nav>
+          <nav className="glass-nav-links">
             <Link
               href="/"
               className={cn("nav-link", {
                 "is-active": pathname === "/",
-                "is-home": true,
               })}
             >
               Home
             </Link>
-            <button
-              type="button"
-              onClick={() => setOpen(true)}
-              className="search-trigger"
-              aria-label="Open search"
-            >
-              <Search className="size-4" />
-              <span>Search</span>
-              <kbd className="kbd">⌘K</kbd>
-            </button>
             <Link
               href="/coins"
               className={cn("nav-link", {
@@ -137,7 +126,7 @@ const Header = () => {
                   pathname === "/coins" || pathname.startsWith("/coins/"),
               })}
             >
-              All coins
+              Coins
             </Link>
             <Link
               href="/trends"
@@ -147,6 +136,16 @@ const Header = () => {
             >
               Trends
             </Link>
+            <button
+              type="button"
+              onClick={() => setOpen(true)}
+              className="search-trigger"
+              aria-label="Open search"
+            >
+              <Search className="size-4" />
+              <span className="hidden sm:inline">Search</span>
+              <kbd className="kbd">⌘K</kbd>
+            </button>
           </nav>
         </div>
       </header>
