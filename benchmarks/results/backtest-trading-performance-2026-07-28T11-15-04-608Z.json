@@ -1,0 +1,132 @@
+{
+  "name": "backtest-trading-performance",
+  "timestamp": "2026-07-28T11:15:04.608Z",
+  "category": "Trading Performance",
+  "summary": {
+    "totalReturnPct": 163.81292011496475,
+    "winRate": 0.5,
+    "sharpeRatio": 3.7601603901547525,
+    "sortinoRatio": 12.730328259202416,
+    "maxDrawdownPct": 71.87669389872136,
+    "profitFactor": 1.8772212798179657,
+    "avgTradeReturnPct": 4.55420844442643,
+    "numTrades": 36
+  },
+  "details": {
+    "aggregate": {
+      "totalReturn": 16381.292011496476,
+      "totalReturnPct": 163.81292011496475,
+      "winRate": 0.5,
+      "sharpeRatio": 3.7601603901547525,
+      "sortinoRatio": 12.730328259202416,
+      "maxDrawdown": 7187.669389872135,
+      "maxDrawdownPct": 71.87669389872136,
+      "profitFactor": 1.8772212798179657,
+      "avgTradeReturn": 455.03588920823546,
+      "avgTradeReturnPct": 4.55420844442643,
+      "numTrades": 36,
+      "winningTrades": 18,
+      "losingTrades": 18,
+      "totalProfit": 35055.362497903065,
+      "totalLoss": 18674.07048640658
+    },
+    "perCoin": {
+      "btc": {
+        "totalReturn": 10966.353651502106,
+        "totalReturnPct": 109.66353651502105,
+        "winRate": 0.4444444444444444,
+        "sharpeRatio": 6.257165832298734,
+        "sortinoRatio": 31.393794601113168,
+        "maxDrawdown": 7145.0294533839915,
+        "maxDrawdownPct": 71.45029453383992,
+        "profitFactor": 2.275275139635258,
+        "avgTradeReturn": 1218.4837390557896,
+        "avgTradeReturnPct": 12.635549378882898,
+        "numTrades": 9,
+        "winningTrades": 4,
+        "losingTrades": 5,
+        "totalProfit": 19565.55966647908,
+        "totalLoss": 8599.206014976971
+      },
+      "eth": {
+        "totalReturn": 7325.227097362244,
+        "totalReturnPct": 73.25227097362244,
+        "winRate": 0.6666666666666666,
+        "sharpeRatio": 6.921796189739877,
+        "sortinoRatio": 18.13758950950112,
+        "maxDrawdown": 4137.382017633838,
+        "maxDrawdownPct": 41.37382017633838,
+        "profitFactor": 2.3852127422692058,
+        "avgTradeReturn": 610.4355914468537,
+        "avgTradeReturnPct": 5.668087656801294,
+        "numTrades": 12,
+        "winningTrades": 8,
+        "losingTrades": 4,
+        "totalProfit": 12613.387445470451,
+        "totalLoss": 5288.160348108206
+      },
+      "sol": {
+        "totalReturn": -1910.2887373678795,
+        "totalReturnPct": -19.102887373678794,
+        "winRate": 0.4,
+        "sharpeRatio": -2.384200678370112,
+        "sortinoRatio": -3.265622915115639,
+        "maxDrawdown": 3050.287372238301,
+        "maxDrawdownPct": 30.50287372238301,
+        "profitFactor": 0.6009177320861091,
+        "avgTradeReturn": -127.35258249119197,
+        "avgTradeReturnPct": -1.1856994861473433,
+        "numTrades": 15,
+        "winningTrades": 6,
+        "losingTrades": 9,
+        "totalProfit": 2876.4153859535263,
+        "totalLoss": 4786.704123321406
+      }
+    },
+    "buyAndHold": {
+      "totalReturn": 17323.45097452853,
+      "totalReturnPct": 173.2345097452853,
+      "winRate": 1,
+      "sharpeRatio": 4.330862743632132,
+      "sortinoRatio": 4.949557421293866,
+      "maxDrawdown": 0,
+      "maxDrawdownPct": 0,
+      "profitFactor": null,
+      "avgTradeReturn": 17323.45097452853,
+      "avgTradeReturnPct": 173.2345097452853,
+      "numTrades": 1,
+      "winningTrades": 1,
+      "losingTrades": 0,
+      "totalProfit": 17323.45097452853,
+      "totalLoss": 0
+    },
+    "config": {
+      "coins": [
+        {
+          "id": "bitcoin",
+          "symbol": "btc",
+          "name": "Bitcoin",
+          "startPrice": 45000
+        },
+        {
+          "id": "ethereum",
+          "symbol": "eth",
+          "name": "Ethereum",
+          "startPrice": 2800
+        },
+        {
+          "id": "solana",
+          "symbol": "sol",
+          "name": "Solana",
+          "startPrice": 120
+        }
+      ],
+      "candlesPerCoin": 600,
+      "lookbackWindow": 60,
+      "forwardWindow": 5,
+      "initialCapital": 10000,
+      "positionSize": 0.95,
+      "signalThreshold": 0.02
+    }
+  }
+}

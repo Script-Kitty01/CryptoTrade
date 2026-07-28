@@ -1,0 +1,84 @@
+{
+  "name": "prediction-accuracy",
+  "timestamp": "2026-07-28T11:16:08.264Z",
+  "category": "Prediction Accuracy",
+  "summary": {
+    "accuracy": 0.2574712643678161,
+    "precision": 0.19604897660818715,
+    "recall": 0.189390523651321,
+    "f1": 0.18321757812485595,
+    "totalPredictions": 435
+  },
+  "details": {
+    "metrics": {
+      "accuracy": 0.2574712643678161,
+      "precision": 0.19604897660818715,
+      "recall": 0.189390523651321,
+      "f1": 0.18321757812485595,
+      "confusionMatrix": {
+        "strong_buy": {
+          "strong_buy": 0,
+          "buy": 6,
+          "hold": 4,
+          "sell": 5,
+          "strong_sell": 0
+        },
+        "buy": {
+          "strong_buy": 0,
+          "buy": 67,
+          "hold": 52,
+          "sell": 81,
+          "strong_sell": 0
+        },
+        "hold": {
+          "strong_buy": 0,
+          "buy": 64,
+          "hold": 23,
+          "sell": 57,
+          "strong_sell": 0
+        },
+        "sell": {
+          "strong_buy": 0,
+          "buy": 35,
+          "hold": 19,
+          "sell": 22,
+          "strong_sell": 0
+        },
+        "strong_sell": {
+          "strong_buy": 0,
+          "buy": 0,
+          "hold": 0,
+          "sell": 0,
+          "strong_sell": 0
+        }
+      },
+      "totalPredictions": 435
+    },
+    "config": {
+      "coins": [
+        {
+          "id": "bitcoin",
+          "symbol": "btc",
+          "name": "Bitcoin",
+          "startPrice": 45000
+        },
+        {
+          "id": "ethereum",
+          "symbol": "eth",
+          "name": "Ethereum",
+          "startPrice": 2800
+        },
+        {
+          "id": "solana",
+          "symbol": "sol",
+          "name": "Solana",
+          "startPrice": 120
+        }
+      ],
+      "candlesPerCoin": 500,
+      "lookbackWindow": 60,
+      "forwardHorizon": 5,
+      "predictionInterval": 3
+    }
+  }
+}

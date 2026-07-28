@@ -136,6 +136,22 @@ const Header = () => {
             >
               Trends
             </Link>
+            <Link
+              href="/portfolio"
+              className={cn("nav-link", {
+                "is-active": pathname === "/portfolio",
+              })}
+            >
+              Portfolio
+            </Link>
+            <Link
+              href="/watchlist"
+              className={cn("nav-link", {
+                "is-active": pathname === "/watchlist",
+              })}
+            >
+              Watchlist
+            </Link>
             <button
               type="button"
               onClick={() => setOpen(true)}
@@ -150,50 +166,54 @@ const Header = () => {
         </div>
       </header>
 
-      <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput
-          placeholder="Search coins..."
-          value={query}
-          onValueChange={setQuery}
-        />
-        <CommandList>
-          {loading && <CommandEmpty>Searching...</CommandEmpty>}
-          {!loading && results.length === 0 && query.trim().length >= 2 && (
-            <CommandEmpty>No coins found.</CommandEmpty>
-          )}
-          {!loading && results.length === 0 && query.trim().length < 2 && (
-            <CommandEmpty>Type at least 2 characters to search.</CommandEmpty>
-          )}
-          {!loading && results.length > 0 && (
-            <CommandGroup heading={query ? "Search results" : "Trending coins"}>
-              {results.map((coin) => (
-                <CommandItem
-                  key={coin.id}
-                  value={coin.id}
-                  onSelect={() => handleSelect(coin.id)}
-                  className="search-item"
-                >
-                  <div className="coin-info">
-                    <Image
-                      src={coin.thumb || coin.large || "/fallback.svg"}
-                      alt={coin.name}
-                      width={28}
-                      height={28}
-                    />
-                    <div>
-                      <p className="font-medium">{coin.name}</p>
-                      <span className="coin-symbol">{coin.symbol}</span>
+      {open ? (
+        <CommandDialog open={open} onOpenChange={setOpen}>
+          <CommandInput
+            placeholder="Search coins..."
+            value={query}
+            onValueChange={setQuery}
+          />
+          <CommandList>
+            {loading && <CommandEmpty>Searching...</CommandEmpty>}
+            {!loading && results.length === 0 && query.trim().length >= 2 && (
+              <CommandEmpty>No coins found.</CommandEmpty>
+            )}
+            {!loading && results.length === 0 && query.trim().length < 2 && (
+              <CommandEmpty>Type at least 2 characters to search.</CommandEmpty>
+            )}
+            {!loading && results.length > 0 && (
+              <CommandGroup
+                heading={query ? "Search results" : "Trending coins"}
+              >
+                {results.map((coin) => (
+                  <CommandItem
+                    key={coin.id}
+                    value={coin.id}
+                    onSelect={() => handleSelect(coin.id)}
+                    className="search-item"
+                  >
+                    <div className="coin-info">
+                      <Image
+                        src={coin.thumb || coin.large || "/fallback.svg"}
+                        alt={coin.name}
+                        width={28}
+                        height={28}
+                      />
+                      <div>
+                        <p className="font-medium">{coin.name}</p>
+                        <span className="coin-symbol">{coin.symbol}</span>
+                      </div>
                     </div>
-                  </div>
-                  {coin.market_cap_rank ? (
-                    <span className="coin-rank">#{coin.market_cap_rank}</span>
-                  ) : null}
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          )}
-        </CommandList>
-      </CommandDialog>
+                    {coin.market_cap_rank ? (
+                      <span className="coin-rank">#{coin.market_cap_rank}</span>
+                    ) : null}
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            )}
+          </CommandList>
+        </CommandDialog>
+      ) : null}
     </>
   );
 };

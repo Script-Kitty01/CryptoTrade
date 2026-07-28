@@ -1,0 +1,71 @@
+{
+  "name": "cost-benchmark",
+  "timestamp": "2026-07-28T11:18:58.821Z",
+  "category": "Cost Analysis",
+  "summary": {
+    "localAnnualCost": 0,
+    "cheapestCloudAnnual": 32.028749999999995,
+    "mostExpensiveAnnual": 1067.625,
+    "localSavingsVsGPT4o": "100%"
+  },
+  "details": {
+    "results": [
+      {
+        "provider": "Ollama (Local)",
+        "model": "qwen3:8b",
+        "costPer1K": 0,
+        "monthlyCost": 0,
+        "annualCost": 0,
+        "savingsVsGPT4o": 100
+      },
+      {
+        "provider": "OpenAI",
+        "model": "GPT-4o",
+        "costPer1K": 2.925,
+        "monthlyCost": 87.75,
+        "annualCost": 1067.625,
+        "savingsVsGPT4o": 0
+      },
+      {
+        "provider": "OpenAI",
+        "model": "GPT-4o-mini",
+        "costPer1K": 0.1755,
+        "monthlyCost": 5.265,
+        "annualCost": 64.05749999999999,
+        "savingsVsGPT4o": 94
+      },
+      {
+        "provider": "Anthropic",
+        "model": "Claude 3.5 Sonnet",
+        "costPer1K": 4.05,
+        "monthlyCost": 121.5,
+        "annualCost": 1478.25,
+        "savingsVsGPT4o": -38.46153846153847
+      },
+      {
+        "provider": "Anthropic",
+        "model": "Claude 3 Haiku",
+        "costPer1K": 0.33749999999999997,
+        "monthlyCost": 10.124999999999998,
+        "annualCost": 123.18749999999999,
+        "savingsVsGPT4o": 88.46153846153845
+      },
+      {
+        "provider": "Google",
+        "model": "Gemini 1.5 Flash",
+        "costPer1K": 0.08775,
+        "monthlyCost": 2.6325,
+        "annualCost": 32.028749999999995,
+        "savingsVsGPT4o": 97.00000000000001
+      },
+      {
+        "provider": "Together AI",
+        "model": "Llama 3.1 8B",
+        "costPer1K": 0.1134,
+        "monthlyCost": 3.402,
+        "annualCost": 41.391,
+        "savingsVsGPT4o": 96.12307692307691
+      }
+    ]
+  }
+}

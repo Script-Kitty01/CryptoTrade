@@ -1,0 +1,41 @@
+{
+  "name": "prompt-evaluation",
+  "timestamp": "2026-07-28T11:17:31.436Z",
+  "category": "Prompt Evaluation",
+  "summary": {
+    "originalTokens": 438,
+    "bestTokenEfficiency": "Concise"
+  },
+  "details": {
+    "results": [
+      {
+        "name": "Original (Default)",
+        "charCount": 1753,
+        "tokenEstimate": 438,
+        "sections": 7,
+        "estimatedCostPer1k": "$0.0131"
+      },
+      {
+        "name": "Concise",
+        "charCount": 443,
+        "tokenEstimate": 111,
+        "sections": 4,
+        "estimatedCostPer1k": "$0.0033"
+      },
+      {
+        "name": "Narrative",
+        "charCount": 826,
+        "tokenEstimate": 207,
+        "sections": 5,
+        "estimatedCostPer1k": "$0.0062"
+      },
+      {
+        "name": "Structured",
+        "charCount": 1028,
+        "tokenEstimate": 257,
+        "sections": 5,
+        "estimatedCostPer1k": "$0.0077"
+      }
+    ]
+  }
+}

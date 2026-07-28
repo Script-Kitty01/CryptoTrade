@@ -1,0 +1,64 @@
+{
+  "name": "latency-benchmarks",
+  "timestamp": "2026-07-28T11:16:37.921Z",
+  "category": "Latency",
+  "summary": {
+    "avgIndicatorMs": 0.5591779999999903,
+    "avgPromptMs": 1.1372000000000093,
+    "avgLLMMs": "N/A",
+    "avgParsingMs": "N/A",
+    "avgTotalMs": 3.804925999999991,
+    "llmFailures": 50
+  },
+  "details": {
+    "stages": [
+      {
+        "name": "Indicator Calculation",
+        "stats": {
+          "min": 0.34140000000002146,
+          "max": 1.1964000000000397,
+          "mean": 0.5591779999999903,
+          "median": 0.4692000000000007,
+          "p95": 1.0322999999999638,
+          "p99": 1.1964000000000397
+        }
+      },
+      {
+        "name": "Prompt Building",
+        "stats": {
+          "min": 0.7611000000000558,
+          "max": 3.108799999999974,
+          "mean": 1.1372000000000093,
+          "median": 1.068899999999985,
+          "p95": 1.657000000000039,
+          "p99": 3.108799999999974
+        }
+      },
+      {
+        "name": "LLM Inference (Ollama)",
+        "stats": null
+      },
+      {
+        "name": "JSON Parsing",
+        "stats": null
+      },
+      {
+        "name": "Total End-to-End",
+        "stats": {
+          "min": 2.643299999999954,
+          "max": 6.410499999999956,
+          "mean": 3.804925999999991,
+          "median": 3.7128999999999905,
+          "p95": 6.014599999999973,
+          "p99": 6.410499999999956
+        }
+      }
+    ],
+    "config": {
+      "iterations": 50,
+      "candles": 200,
+      "startPrice": 45000,
+      "warmupIterations": 5
+    }
+  }
+}

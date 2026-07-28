@@ -1,0 +1,61 @@
+services:
+  # ─── Next.js App (dev mode with hot reload) ──────────────────────
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - NODE_ENV=development
+      - OLLAMA_BASE_URL=${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+      - DATABASE_URL=postgresql://crypto:crypto@db:5432/cryptotrade
+      - COINGECKO_API_KEY=${COINGECKO_API_KEY:-}
+    depends_on:
+      db:
+        condition: service_healthy
+    stdin_open: true
+    tty: true
+
+  # ─── PostgreSQL ──────────────────────────────────────────────────
+  db:
+    image: postgres:17-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: crypto
+      POSTGRES_PASSWORD: crypto
+      POSTGRES_DB: cryptotrade
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U crypto -d cryptotrade"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ─── Ollama (optional — uncomment if you want Ollama in Docker) ──
+  # NOTE: Ollama in Docker is CPU-only and very slow for LLM inference.
+  #       For development, run Ollama natively on your host instead.
+  #
+  # ollama:
+  #   image: ollama/ollama:latest
+  #   ports:
+  #     - "11434:11434"
+  #   volumes:
+  #     - ollama_data:/root/.ollama
+  #   deploy:
+  #     resources:
+  #       reservations:
+  #         devices:
+  #           - driver: nvidia
+  #             count: 1
+  #             capabilities: [gpu]
+
+volumes:
+  pgdata:
+  # ollama_data:

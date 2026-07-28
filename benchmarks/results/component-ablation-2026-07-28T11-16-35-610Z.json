@@ -1,0 +1,53 @@
+{
+  "name": "component-ablation",
+  "timestamp": "2026-07-28T11:16:35.610Z",
+  "category": "Component Ablation",
+  "summary": {
+    "bestConfig": "Full Pipeline (Quant)",
+    "bestAccuracy": 0.3793103448275862,
+    "totalImprovement": 0.1103448275862069
+  },
+  "details": {
+    "results": [
+      {
+        "config": "Indicators Only (RSI+MACD)",
+        "accuracy": 0.2689655172413793,
+        "precision": 0.2631247931148626,
+        "recall": 0.3297979797979798,
+        "f1": 0.22650031084528477,
+        "totalPredictions": 145
+      },
+      {
+        "config": "Indicators + Score",
+        "accuracy": 0.3793103448275862,
+        "precision": 0.29615987460815046,
+        "recall": 0.2952020202020202,
+        "f1": 0.2812226955002184,
+        "totalPredictions": 145
+      },
+      {
+        "config": "Score + LLM Fallback",
+        "accuracy": 0.3793103448275862,
+        "precision": 0.29615987460815046,
+        "recall": 0.2952020202020202,
+        "f1": 0.2812226955002184,
+        "totalPredictions": 145
+      },
+      {
+        "config": "Full Pipeline (Quant)",
+        "accuracy": 0.3793103448275862,
+        "precision": 0.29615987460815046,
+        "recall": 0.2952020202020202,
+        "f1": 0.2812226955002184,
+        "totalPredictions": 145
+      }
+    ],
+    "config": {
+      "candles": 500,
+      "startPrice": 45000,
+      "lookback": 60,
+      "forwardHorizon": 5,
+      "predictionInterval": 3
+    }
+  }
+}

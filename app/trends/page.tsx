@@ -68,16 +68,6 @@ const riskConfig: Record<MarketSummaryData["riskLevel"], string> = {
   high: "text-red-400",
 };
 
-function timeSince(ts: number): string {
-  const seconds = Math.floor((Date.now() - ts) / 1000);
-  if (seconds < 5) return "just now";
-  if (seconds < 60) return `${seconds}s ago`;
-  const minutes = Math.floor(seconds / 60);
-  if (minutes < 60) return `${minutes}m ago`;
-  const hours = Math.floor(minutes / 60);
-  return `${hours}h ago`;
-}
-
 export default function TrendsPage() {
   const [data, setData] = useState<TrendsResponse | null>(null);
   const [summary, setSummary] = useState<SummaryResponse | null>(null);
@@ -91,6 +81,16 @@ export default function TrendsPage() {
     const id = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(id);
   }, []);
+
+  function timeSince(ts: number): string {
+    const seconds = Math.floor((now - ts) / 1000);
+    if (seconds < 5) return "just now";
+    if (seconds < 60) return `${seconds}s ago`;
+    const minutes = Math.floor(seconds / 60);
+    if (minutes < 60) return `${minutes}m ago`;
+    const hours = Math.floor(minutes / 60);
+    return `${hours}h ago`;
+  }
 
   const fetchTrends = useCallback(async () => {
     try {
@@ -126,7 +126,6 @@ export default function TrendsPage() {
   }, []);
 
   useEffect(() => {
-    let cancelled = false;
     let intervalId: NodeJS.Timeout | null = null;
 
     const fetchAll = async () => {
@@ -137,7 +136,6 @@ export default function TrendsPage() {
     intervalId = setInterval(fetchAll, 60_000);
 
     return () => {
-      cancelled = true;
       if (intervalId) clearInterval(intervalId);
     };
   }, [fetchTrends, fetchSummary]);
@@ -266,7 +264,7 @@ export default function TrendsPage() {
                 <div className="col-span-2 md:col-span-2 flex justify-center">
                   <Skeleton className="h-4 w-10" />
                 </div>
-                <div className="hidden md:block md:col-span-2 flex justify-end">
+                <div className="hidden md:flex md:col-span-2 justify-end">
                   <Skeleton className="h-4 w-12" />
                 </div>
               </div>

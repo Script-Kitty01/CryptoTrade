@@ -1,0 +1,69 @@
+name: E2E Tests
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "app/**"
+      - "components/**"
+      - "lib/**"
+      - "e2e/**"
+      - "playwright.config.ts"
+  pull_request:
+    branches: [main]
+  schedule:
+    # Run daily at 8 AM UTC to catch regressions from API changes
+    - cron: "0 8 * * *"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  e2e:
+    name: Playwright
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Build app
+        run: npm run build
+        env:
+          COINGECKO_BASE_URL: https://api.coingecko.com/api/v3
+          COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
+          OLLAMA_BASE_URL: http://localhost:11434
+
+      - name: Start app
+        run: |
+          npm run start &
+          npx wait-on http://localhost:3000 --timeout 30000
+
+      - name: Run E2E tests
+        run: npx playwright test --shard=${{ matrix.shard }}/2
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-${{ matrix.shard }}
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 30

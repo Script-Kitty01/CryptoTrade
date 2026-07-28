@@ -45,7 +45,8 @@ export async function fetcher<T>(
 
     if (response.status === 429) {
       if (attempt < retries) {
-        const delay = BASE_DELAY_MS * Math.pow(2, attempt) + Math.random() * 1000;
+        const delay =
+          BASE_DELAY_MS * Math.pow(2, attempt) + Math.random() * 1000;
         console.warn(
           `[fetcher] 429 rate-limited on ${endpoint}, retrying in ${Math.round(delay)}ms (attempt ${attempt + 1}/${retries})`,
         );

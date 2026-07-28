@@ -1,0 +1,232 @@
+{
+  "name": "regression-test",
+  "timestamp": "2026-07-28T11:14:31.992Z",
+  "category": "Regression Testing",
+  "summary": {
+    "testsPassed": 26,
+    "totalTests": 27,
+    "passRate": 96.29629629629629,
+    "accuracy": 0.3793103448275862,
+    "avgLatencyMs": 1.024919999999999
+  },
+  "details": {
+    "results": [
+      {
+        "name": "Indicator: SMA",
+        "passed": true,
+        "value": "✅",
+        "threshold": "Valid output"
+      },
+      {
+        "name": "Indicator: EMA",
+        "passed": true,
+        "value": "✅",
+        "threshold": "Valid output"
+      },
+      {
+        "name": "Indicator: RSI",
+        "passed": true,
+        "value": "✅",
+        "threshold": "Valid output"
+      },
+      {
+        "name": "Indicator: StochRSI",
+        "passed": true,
+        "value": "✅",
+        "threshold": "Valid output"
+      },
+      {
+        "name": "Indicator: MACD",
+        "passed": true,
+        "value": "✅",
+        "threshold": "Valid output"
+      },
+      {
+        "name": "Indicator: Bollinger",
+        "passed": true,
+        "value": "✅",
+        "threshold": "Valid output"
+      },
+      {
+        "name": "Indicator: ATR",
+        "passed": true,
+        "value": "✅",
+        "threshold": "Valid output"
+      },
+      {
+        "name": "Indicator: ADX",
+        "passed": true,
+        "value": "✅",
+        "threshold": "Valid output"
+      },
+      {
+        "name": "Indicator: VWAP",
+        "passed": true,
+        "value": "✅",
+        "threshold": "Valid output"
+      },
+      {
+        "name": "Indicator: OBV",
+        "passed": true,
+        "value": "✅",
+        "threshold": "Valid output"
+      },
+      {
+        "name": "Indicator: CMF",
+        "passed": true,
+        "value": "✅",
+        "threshold": "Valid output"
+      },
+      {
+        "name": "Indicator: MFI",
+        "passed": true,
+        "value": "✅",
+        "threshold": "Valid output"
+      },
+      {
+        "name": "Indicator: Williams %R",
+        "passed": true,
+        "value": "✅",
+        "threshold": "Valid output"
+      },
+      {
+        "name": "Indicator: ROC",
+        "passed": true,
+        "value": "✅",
+        "threshold": "Valid output"
+      },
+      {
+        "name": "Indicator: Momentum",
+        "passed": true,
+        "value": "✅",
+        "threshold": "Valid output"
+      },
+      {
+        "name": "Indicator: Volatility",
+        "passed": true,
+        "value": "✅",
+        "threshold": "Valid output"
+      },
+      {
+        "name": "Indicator: Sharpe",
+        "passed": true,
+        "value": "✅",
+        "threshold": "Valid output"
+      },
+      {
+        "name": "Indicator: Volume Trend",
+        "passed": true,
+        "value": "✅",
+        "threshold": "Valid output"
+      },
+      {
+        "name": "Accuracy Regression",
+        "passed": false,
+        "value": "37.9%",
+        "threshold": "≥ 55%"
+      },
+      {
+        "name": "Latency Regression",
+        "passed": true,
+        "value": "1.0 ms",
+        "threshold": "≤ 50.0 ms"
+      },
+      {
+        "name": "Integrity: Has signal",
+        "passed": true,
+        "value": "✅",
+        "threshold": "Present"
+      },
+      {
+        "name": "Integrity: Has confidence",
+        "passed": true,
+        "value": "✅",
+        "threshold": "Present"
+      },
+      {
+        "name": "Integrity: Has composite score",
+        "passed": true,
+        "value": "✅",
+        "threshold": "Present"
+      },
+      {
+        "name": "Integrity: Has all sub-scores",
+        "passed": true,
+        "value": "✅",
+        "threshold": "Present"
+      },
+      {
+        "name": "Integrity: Has indicators object",
+        "passed": true,
+        "value": "✅",
+        "threshold": "Present"
+      },
+      {
+        "name": "Integrity: Has features object",
+        "passed": true,
+        "value": "✅",
+        "threshold": "Present"
+      },
+      {
+        "name": "Integrity: Has raw data",
+        "passed": true,
+        "value": "✅",
+        "threshold": "Present"
+      }
+    ],
+    "accuracy": {
+      "accuracy": 0.3793103448275862,
+      "precision": 0.29615987460815046,
+      "recall": 0.2952020202020202,
+      "f1": 0.2812226955002184,
+      "confusionMatrix": {
+        "strong_buy": {
+          "strong_buy": 0,
+          "buy": 0,
+          "hold": 0,
+          "sell": 0,
+          "strong_sell": 0
+        },
+        "buy": {
+          "strong_buy": 0,
+          "buy": 24,
+          "hold": 12,
+          "sell": 19,
+          "strong_sell": 0
+        },
+        "hold": {
+          "strong_buy": 0,
+          "buy": 19,
+          "hold": 18,
+          "sell": 23,
+          "strong_sell": 0
+        },
+        "sell": {
+          "strong_buy": 0,
+          "buy": 10,
+          "hold": 6,
+          "sell": 13,
+          "strong_sell": 0
+        },
+        "strong_sell": {
+          "strong_buy": 0,
+          "buy": 1,
+          "hold": 0,
+          "sell": 0,
+          "strong_sell": 0
+        }
+      },
+      "totalPredictions": 145
+    },
+    "avgLatencyMs": 1.024919999999999,
+    "config": {
+      "candles": 500,
+      "startPrice": 45000,
+      "lookback": 60,
+      "forwardHorizon": 5,
+      "predictionInterval": 3,
+      "minAccuracy": 0.55,
+      "maxAvgLatencyMs": 50
+    }
+  }
+}

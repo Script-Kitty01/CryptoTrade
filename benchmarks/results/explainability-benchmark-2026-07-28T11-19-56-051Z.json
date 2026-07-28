@@ -1,0 +1,417 @@
+{
+  "name": "explainability-benchmark",
+  "timestamp": "2026-07-28T11:19:56.051Z",
+  "category": "Explainability",
+  "summary": {
+    "totalChecks": 60,
+    "passed": 60,
+    "failed": 0,
+    "passRate": 100
+  },
+  "details": {
+    "regimes": [
+      {
+        "regime": "bull",
+        "passed": 10,
+        "total": 10,
+        "checks": [
+          {
+            "name": "Sub-scores present",
+            "description": "All 5 sub-scores (momentum, trend, meanReversion, volume, volatilityRisk) are present",
+            "passed": true,
+            "detail": "All present: momentum=78.71682513141175, trend=50, meanReversion=50, volume=49.66801917537949, volatilityRisk=66.8850576651775"
+          },
+          {
+            "name": "Sub-scores in range",
+            "description": "All sub-scores are within 0-100",
+            "passed": true,
+            "detail": "All in [0, 100]"
+          },
+          {
+            "name": "Composite score valid",
+            "description": "Composite score is within 0-100",
+            "passed": true,
+            "detail": "Composite = 51.3"
+          },
+          {
+            "name": "Valid signal",
+            "description": "Signal is one of: strong_buy, buy, hold, sell, strong_sell",
+            "passed": true,
+            "detail": "Signal = hold"
+          },
+          {
+            "name": "Confidence valid",
+            "description": "Confidence is within 0-100",
+            "passed": true,
+            "detail": "Confidence = 22.0%"
+          },
+          {
+            "name": "Signal-score alignment",
+            "description": "Bullish signals have composite > 50, bearish < 50, neutral near 50",
+            "passed": true,
+            "detail": "Signal=hold, Composite=51.3"
+          },
+          {
+            "name": "Key indicators present",
+            "description": "RSI, MACD, SMA, EMA, Bollinger Bands are present",
+            "passed": true,
+            "detail": "All key indicators present"
+          },
+          {
+            "name": "RSI in range",
+            "description": "RSI is within 0-100",
+            "passed": true,
+            "detail": "RSI = 47.0"
+          },
+          {
+            "name": "Score dispersion",
+            "description": "Sub-scores have meaningful variation (σ > 1)",
+            "passed": true,
+            "detail": "σ = 11.83"
+          },
+          {
+            "name": "Features present",
+            "description": "At least 5 feature keys present",
+            "passed": true,
+            "detail": "10 features: priceToSma20, priceToSma50, priceToEma200, priceToBbUpper, priceToBbLower..."
+          }
+        ]
+      },
+      {
+        "regime": "bear",
+        "passed": 10,
+        "total": 10,
+        "checks": [
+          {
+            "name": "Sub-scores present",
+            "description": "All 5 sub-scores (momentum, trend, meanReversion, volume, volatilityRisk) are present",
+            "passed": true,
+            "detail": "All present: momentum=66.32534417827453, trend=20, meanReversion=65, volume=49.6238613216699, volatilityRisk=71.63335560857873"
+          },
+          {
+            "name": "Sub-scores in range",
+            "description": "All sub-scores are within 0-100",
+            "passed": true,
+            "detail": "All in [0, 100]"
+          },
+          {
+            "name": "Composite score valid",
+            "description": "Composite score is within 0-100",
+            "passed": true,
+            "detail": "Composite = 41.2"
+          },
+          {
+            "name": "Valid signal",
+            "description": "Signal is one of: strong_buy, buy, hold, sell, strong_sell",
+            "passed": true,
+            "detail": "Signal = sell"
+          },
+          {
+            "name": "Confidence valid",
+            "description": "Confidence is within 0-100",
+            "passed": true,
+            "detail": "Confidence = 36.0%"
+          },
+          {
+            "name": "Signal-score alignment",
+            "description": "Bullish signals have composite > 50, bearish < 50, neutral near 50",
+            "passed": true,
+            "detail": "Signal=sell, Composite=41.2"
+          },
+          {
+            "name": "Key indicators present",
+            "description": "RSI, MACD, SMA, EMA, Bollinger Bands are present",
+            "passed": true,
+            "detail": "All key indicators present"
+          },
+          {
+            "name": "RSI in range",
+            "description": "RSI is within 0-100",
+            "passed": true,
+            "detail": "RSI = 36.4"
+          },
+          {
+            "name": "Score dispersion",
+            "description": "Sub-scores have meaningful variation (σ > 1)",
+            "passed": true,
+            "detail": "σ = 18.75"
+          },
+          {
+            "name": "Features present",
+            "description": "At least 5 feature keys present",
+            "passed": true,
+            "detail": "10 features: priceToSma20, priceToSma50, priceToEma200, priceToBbUpper, priceToBbLower..."
+          }
+        ]
+      },
+      {
+        "regime": "sideways",
+        "passed": 10,
+        "total": 10,
+        "checks": [
+          {
+            "name": "Sub-scores present",
+            "description": "All 5 sub-scores (momentum, trend, meanReversion, volume, volatilityRisk) are present",
+            "passed": true,
+            "detail": "All present: momentum=68.79631529874918, trend=20, meanReversion=65, volume=52.62790844977723, volatilityRisk=67.04562728809661"
+          },
+          {
+            "name": "Sub-scores in range",
+            "description": "All sub-scores are within 0-100",
+            "passed": true,
+            "detail": "All in [0, 100]"
+          },
+          {
+            "name": "Composite score valid",
+            "description": "Composite score is within 0-100",
+            "passed": true,
+            "detail": "Composite = 42.5"
+          },
+          {
+            "name": "Valid signal",
+            "description": "Signal is one of: strong_buy, buy, hold, sell, strong_sell",
+            "passed": true,
+            "detail": "Signal = hold"
+          },
+          {
+            "name": "Confidence valid",
+            "description": "Confidence is within 0-100",
+            "passed": true,
+            "detail": "Confidence = 34.0%"
+          },
+          {
+            "name": "Signal-score alignment",
+            "description": "Bullish signals have composite > 50, bearish < 50, neutral near 50",
+            "passed": true,
+            "detail": "Signal=hold, Composite=42.5"
+          },
+          {
+            "name": "Key indicators present",
+            "description": "RSI, MACD, SMA, EMA, Bollinger Bands are present",
+            "passed": true,
+            "detail": "All key indicators present"
+          },
+          {
+            "name": "RSI in range",
+            "description": "RSI is within 0-100",
+            "passed": true,
+            "detail": "RSI = 44.2"
+          },
+          {
+            "name": "Score dispersion",
+            "description": "Sub-scores have meaningful variation (σ > 1)",
+            "passed": true,
+            "detail": "σ = 18.25"
+          },
+          {
+            "name": "Features present",
+            "description": "At least 5 feature keys present",
+            "passed": true,
+            "detail": "10 features: priceToSma20, priceToSma50, priceToEma200, priceToBbUpper, priceToBbLower..."
+          }
+        ]
+      },
+      {
+        "regime": "volatile",
+        "passed": 10,
+        "total": 10,
+        "checks": [
+          {
+            "name": "Sub-scores present",
+            "description": "All 5 sub-scores (momentum, trend, meanReversion, volume, volatilityRisk) are present",
+            "passed": true,
+            "detail": "All present: momentum=61.020161676963454, trend=20, meanReversion=65, volume=52.86259503433993, volatilityRisk=94.42959046117963"
+          },
+          {
+            "name": "Sub-scores in range",
+            "description": "All sub-scores are within 0-100",
+            "passed": true,
+            "detail": "All in [0, 100]"
+          },
+          {
+            "name": "Composite score valid",
+            "description": "Composite score is within 0-100",
+            "passed": true,
+            "detail": "Composite = 39.2"
+          },
+          {
+            "name": "Valid signal",
+            "description": "Signal is one of: strong_buy, buy, hold, sell, strong_sell",
+            "passed": true,
+            "detail": "Signal = sell"
+          },
+          {
+            "name": "Confidence valid",
+            "description": "Confidence is within 0-100",
+            "passed": true,
+            "detail": "Confidence = 39.0%"
+          },
+          {
+            "name": "Signal-score alignment",
+            "description": "Bullish signals have composite > 50, bearish < 50, neutral near 50",
+            "passed": true,
+            "detail": "Signal=sell, Composite=39.2"
+          },
+          {
+            "name": "Key indicators present",
+            "description": "RSI, MACD, SMA, EMA, Bollinger Bands are present",
+            "passed": true,
+            "detail": "All key indicators present"
+          },
+          {
+            "name": "RSI in range",
+            "description": "RSI is within 0-100",
+            "passed": true,
+            "detail": "RSI = 44.7"
+          },
+          {
+            "name": "Score dispersion",
+            "description": "Sub-scores have meaningful variation (σ > 1)",
+            "passed": true,
+            "detail": "σ = 23.89"
+          },
+          {
+            "name": "Features present",
+            "description": "At least 5 feature keys present",
+            "passed": true,
+            "detail": "10 features: priceToSma20, priceToSma50, priceToEma200, priceToBbUpper, priceToBbLower..."
+          }
+        ]
+      },
+      {
+        "regime": "crash",
+        "passed": 10,
+        "total": 10,
+        "checks": [
+          {
+            "name": "Sub-scores present",
+            "description": "All 5 sub-scores (momentum, trend, meanReversion, volume, volatilityRisk) are present",
+            "passed": true,
+            "detail": "All present: momentum=66.06168729742897, trend=20, meanReversion=65.01533966264637, volume=86.5788977157467, volatilityRisk=72.6365843554218"
+          },
+          {
+            "name": "Sub-scores in range",
+            "description": "All sub-scores are within 0-100",
+            "passed": true,
+            "detail": "All in [0, 100]"
+          },
+          {
+            "name": "Composite score valid",
+            "description": "Composite score is within 0-100",
+            "passed": true,
+            "detail": "Composite = 46.6"
+          },
+          {
+            "name": "Valid signal",
+            "description": "Signal is one of: strong_buy, buy, hold, sell, strong_sell",
+            "passed": true,
+            "detail": "Signal = hold"
+          },
+          {
+            "name": "Confidence valid",
+            "description": "Confidence is within 0-100",
+            "passed": true,
+            "detail": "Confidence = 26.0%"
+          },
+          {
+            "name": "Signal-score alignment",
+            "description": "Bullish signals have composite > 50, bearish < 50, neutral near 50",
+            "passed": true,
+            "detail": "Signal=hold, Composite=46.6"
+          },
+          {
+            "name": "Key indicators present",
+            "description": "RSI, MACD, SMA, EMA, Bollinger Bands are present",
+            "passed": true,
+            "detail": "All key indicators present"
+          },
+          {
+            "name": "RSI in range",
+            "description": "RSI is within 0-100",
+            "passed": true,
+            "detail": "RSI = 33.8"
+          },
+          {
+            "name": "Score dispersion",
+            "description": "Sub-scores have meaningful variation (σ > 1)",
+            "passed": true,
+            "detail": "σ = 22.39"
+          },
+          {
+            "name": "Features present",
+            "description": "At least 5 feature keys present",
+            "passed": true,
+            "detail": "10 features: priceToSma20, priceToSma50, priceToEma200, priceToBbUpper, priceToBbLower..."
+          }
+        ]
+      },
+      {
+        "regime": "mixed",
+        "passed": 10,
+        "total": 10,
+        "checks": [
+          {
+            "name": "Sub-scores present",
+            "description": "All 5 sub-scores (momentum, trend, meanReversion, volume, volatilityRisk) are present",
+            "passed": true,
+            "detail": "All present: momentum=63.823869439054846, trend=20, meanReversion=65.02130438122221, volume=86.4832512332222, volatilityRisk=79.14799573041748"
+          },
+          {
+            "name": "Sub-scores in range",
+            "description": "All sub-scores are within 0-100",
+            "passed": true,
+            "detail": "All in [0, 100]"
+          },
+          {
+            "name": "Composite score valid",
+            "description": "Composite score is within 0-100",
+            "passed": true,
+            "detail": "Composite = 45.7"
+          },
+          {
+            "name": "Valid signal",
+            "description": "Signal is one of: strong_buy, buy, hold, sell, strong_sell",
+            "passed": true,
+            "detail": "Signal = hold"
+          },
+          {
+            "name": "Confidence valid",
+            "description": "Confidence is within 0-100",
+            "passed": true,
+            "detail": "Confidence = 28.0%"
+          },
+          {
+            "name": "Signal-score alignment",
+            "description": "Bullish signals have composite > 50, bearish < 50, neutral near 50",
+            "passed": true,
+            "detail": "Signal=hold, Composite=45.7"
+          },
+          {
+            "name": "Key indicators present",
+            "description": "RSI, MACD, SMA, EMA, Bollinger Bands are present",
+            "passed": true,
+            "detail": "All key indicators present"
+          },
+          {
+            "name": "RSI in range",
+            "description": "RSI is within 0-100",
+            "passed": true,
+            "detail": "RSI = 31.5"
+          },
+          {
+            "name": "Score dispersion",
+            "description": "Sub-scores have meaningful variation (σ > 1)",
+            "passed": true,
+            "detail": "σ = 23.09"
+          },
+          {
+            "name": "Features present",
+            "description": "At least 5 feature keys present",
+            "passed": true,
+            "detail": "10 features: priceToSma20, priceToSma50, priceToEma200, priceToBbUpper, priceToBbLower..."
+          }
+        ]
+      }
+    ]
+  }
+}

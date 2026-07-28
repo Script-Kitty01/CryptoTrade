@@ -1,0 +1,17 @@
+node_modules
+.next
+.git
+.gitignore
+*.md
+!README.md
+.env*
+!.env.local.example
+.vercel
+coverage
+playwright-report
+test-results
+e2e
+*.log
+npm-debug.log*
+.DS_Store
+.vscode

@@ -1,0 +1,56 @@
+{
+  "name": "robustness-benchmarks",
+  "timestamp": "2026-07-28T11:17:20.270Z",
+  "category": "Robustness",
+  "summary": {
+    "testsPassed": 6,
+    "totalTests": 6,
+    "availabilityPct": 100
+  },
+  "details": {
+    "tests": [
+      {
+        "name": "Valid Data Processing",
+        "description": "Quant engine processes complete OHLC data",
+        "passed": true,
+        "availability": true,
+        "details": "Signal: hold, Confidence: 23%"
+      },
+      {
+        "name": "Insufficient Data",
+        "description": "Quant engine handles minimal OHLC data gracefully",
+        "passed": true,
+        "availability": true,
+        "details": "Returned snapshot with null indicators (expected)"
+      },
+      {
+        "name": "LLM Fallback Mode",
+        "description": "Fallback generates valid analysis without LLM",
+        "passed": true,
+        "availability": true,
+        "details": "Fallback signal: hold, Confidence: 23%"
+      },
+      {
+        "name": "Malformed JSON Handling",
+        "description": "Parser handles various malformed LLM outputs",
+        "passed": true,
+        "availability": true,
+        "details": "3/5 malformed inputs parsed successfully"
+      },
+      {
+        "name": "Minimal Data Handling",
+        "description": "Engine handles near-empty data arrays",
+        "passed": true,
+        "availability": true,
+        "details": "Signal: sell (most indicators null)"
+      },
+      {
+        "name": "Extreme Price Values",
+        "description": "Engine handles very small price values",
+        "passed": true,
+        "availability": true,
+        "details": "Price: $0.00000385, Signal: hold"
+      }
+    ]
+  }
+}

@@ -1,0 +1,181 @@
+{
+  "name": "baseline-comparison",
+  "timestamp": "2026-07-28T11:16:33.020Z",
+  "category": "Baseline Comparison",
+  "summary": {
+    "Buy & Hold": {
+      "sharpe": 0,
+      "winRate": 1,
+      "returnPct": 0.9170624218743645,
+      "maxDrawdownPct": 0,
+      "numTrades": 1
+    },
+    "RSI Only": {
+      "sharpe": -11.848331911441967,
+      "winRate": 0.4,
+      "returnPct": -35.75551871874215,
+      "maxDrawdownPct": 36.34424705442784,
+      "numTrades": 5
+    },
+    "MACD Only": {
+      "sharpe": 1.9789160377142594,
+      "winRate": 0.375,
+      "returnPct": 13.1885246588448,
+      "maxDrawdownPct": 36.41803134601628,
+      "numTrades": 16
+    },
+    "SMA Crossover": {
+      "sharpe": 1.0567059609426772,
+      "winRate": 0.4,
+      "returnPct": -1.447155107993035,
+      "maxDrawdownPct": 27.98617123440995,
+      "numTrades": 5
+    },
+    "EMA Crossover": {
+      "sharpe": -0.4448277741924649,
+      "winRate": 0.25,
+      "returnPct": -16.32288815792767,
+      "maxDrawdownPct": 36.866702986012235,
+      "numTrades": 8
+    },
+    "Quant Engine": {
+      "sharpe": 2.7995055740143475,
+      "winRate": 0.2222222222222222,
+      "returnPct": 19.963198125122336,
+      "maxDrawdownPct": 24.95419332855233,
+      "numTrades": 9
+    }
+  },
+  "details": {
+    "results": [
+      {
+        "name": "Buy & Hold",
+        "metrics": {
+          "totalReturn": 91.70624218743646,
+          "totalReturnPct": 0.9170624218743645,
+          "winRate": 1,
+          "sharpeRatio": 0,
+          "sortinoRatio": 0,
+          "maxDrawdown": 0,
+          "maxDrawdownPct": 0,
+          "profitFactor": null,
+          "avgTradeReturn": 91.70624218743646,
+          "avgTradeReturnPct": 0.9170624218743645,
+          "numTrades": 1,
+          "winningTrades": 1,
+          "losingTrades": 0,
+          "totalProfit": 91.70624218743646,
+          "totalLoss": 0
+        }
+      },
+      {
+        "name": "RSI Only",
+        "metrics": {
+          "totalReturn": -3575.551871874215,
+          "totalReturnPct": -35.75551871874215,
+          "winRate": 0.4,
+          "sharpeRatio": -11.848331911441967,
+          "sortinoRatio": -9.505162030620392,
+          "maxDrawdown": 3634.424705442784,
+          "maxDrawdownPct": 36.34424705442784,
+          "profitFactor": 0.04018441875674378,
+          "avgTradeReturn": -715.110374374843,
+          "avgTradeReturnPct": -8.250125725573403,
+          "numTrades": 5,
+          "winningTrades": 2,
+          "losingTrades": 3,
+          "totalProfit": 149.6969589926232,
+          "totalLoss": 3725.248830866838
+        }
+      },
+      {
+        "name": "MACD Only",
+        "metrics": {
+          "totalReturn": 1318.85246588448,
+          "totalReturnPct": 13.1885246588448,
+          "winRate": 0.375,
+          "sharpeRatio": 1.9789160377142594,
+          "sortinoRatio": 4.251525686745828,
+          "maxDrawdown": 3641.803134601628,
+          "maxDrawdownPct": 36.41803134601628,
+          "profitFactor": 1.3524565669867834,
+          "avgTradeReturn": 82.42827911778,
+          "avgTradeReturnPct": 1.2853211237214477,
+          "numTrades": 16,
+          "winningTrades": 6,
+          "losingTrades": 10,
+          "totalProfit": 5060.738954649873,
+          "totalLoss": 3741.8864887653936
+        }
+      },
+      {
+        "name": "SMA Crossover",
+        "metrics": {
+          "totalReturn": -144.7155107993035,
+          "totalReturnPct": -1.447155107993035,
+          "winRate": 0.4,
+          "sharpeRatio": 1.0567059609426772,
+          "sortinoRatio": 2.196865385211087,
+          "maxDrawdown": 2798.617123440995,
+          "maxDrawdownPct": 27.98617123440995,
+          "profitFactor": 0.9482903504065713,
+          "avgTradeReturn": -28.9431021598607,
+          "avgTradeReturnPct": 1.3086467211851782,
+          "numTrades": 5,
+          "winningTrades": 2,
+          "losingTrades": 3,
+          "totalProfit": 2653.9016126416927,
+          "totalLoss": 2798.6171234409962
+        }
+      },
+      {
+        "name": "EMA Crossover",
+        "metrics": {
+          "totalReturn": -1632.2888157927673,
+          "totalReturnPct": -16.32288815792767,
+          "winRate": 0.25,
+          "sharpeRatio": -0.4448277741924649,
+          "sortinoRatio": -0.9933645483712847,
+          "maxDrawdown": 3686.6702986012233,
+          "maxDrawdownPct": 36.866702986012235,
+          "profitFactor": 0.6643435572431705,
+          "avgTradeReturn": -204.0361019740959,
+          "avgTradeReturnPct": -0.5933420299279399,
+          "numTrades": 8,
+          "winningTrades": 2,
+          "losingTrades": 6,
+          "totalProfit": 3230.6859639742315,
+          "totalLoss": 4862.974779766999
+        }
+      },
+      {
+        "name": "Quant Engine",
+        "metrics": {
+          "totalReturn": 1996.3198125122335,
+          "totalReturnPct": 19.963198125122336,
+          "winRate": 0.2222222222222222,
+          "sharpeRatio": 2.7995055740143475,
+          "sortinoRatio": 11.909705496647428,
+          "maxDrawdown": 2495.419332855233,
+          "maxDrawdownPct": 24.95419332855233,
+          "profitFactor": 1.6999517798428931,
+          "avgTradeReturn": 221.8133125013593,
+          "avgTradeReturnPct": 3.8438955106645576,
+          "numTrades": 9,
+          "winningTrades": 2,
+          "losingTrades": 7,
+          "totalProfit": 4848.401727298298,
+          "totalLoss": 2852.081914786065
+        }
+      }
+    ],
+    "config": {
+      "candles": 500,
+      "startPrice": 45000,
+      "lookback": 60,
+      "forwardWindow": 5,
+      "initialCapital": 10000,
+      "positionSize": 0.95
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "name": "throughput-benchmarks",
+  "timestamp": "2026-07-28T11:17:18.433Z",
+  "category": "Throughput",
+  "summary": {
+    "maxThroughput": 2853.32429400197,
+    "maxCoins": 1000,
+    "peakMemoryMB": 5
+  },
+  "details": {
+    "results": [
+      {
+        "coinCount": 10,
+        "totalTimeMs": 18.417100000000005,
+        "avgTimePerCoinMs": 1.8417100000000004,
+        "throughputPerSec": 542.9736494887901,
+        "memoryMB": 1,
+        "cpuUsagePct": 9.2137929326659
+      },
+      {
+        "coinCount": 50,
+        "totalTimeMs": 34.96170000000001,
+        "avgTimePerCoinMs": 0.6992340000000001,
+        "throughputPerSec": 1430.1364064104432,
+        "memoryMB": 1,
+        "cpuUsagePct": 9.213794239422178
+      },
+      {
+        "coinCount": 100,
+        "totalTimeMs": 49.410000000000025,
+        "avgTimePerCoinMs": 0.49410000000000026,
+        "throughputPerSec": 2023.8818053025693,
+        "memoryMB": -2,
+        "cpuUsagePct": 9.213795693272031
+      },
+      {
+        "coinCount": 500,
+        "totalTimeMs": 213.00399999999996,
+        "avgTimePerCoinMs": 0.42600799999999994,
+        "throughputPerSec": 2347.3737582392823,
+        "memoryMB": 5,
+        "cpuUsagePct": 9.213799826770147
+      },
+      {
+        "coinCount": 1000,
+        "totalTimeMs": 350.4684,
+        "avgTimePerCoinMs": 0.35046839999999996,
+        "throughputPerSec": 2853.32429400197,
+        "memoryMB": 5,
+        "cpuUsagePct": 9.213807264238216
+      }
+    ],
+    "config": {
+      "coinCounts": [
+        10,
+        50,
+        100,
+        500,
+        1000
+      ],
+      "candlesPerCoin": 200,
+      "basePrice": 100
+    }
+  }
+}

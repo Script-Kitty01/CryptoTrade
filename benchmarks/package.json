@@ -1,0 +1,23 @@
+{
+  "name": "cryptotrade-benchmarks",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "bench": "npx tsx run-all.ts",
+    "backtest": "npx tsx backtest.ts",
+    "prediction": "npx tsx prediction-accuracy.ts",
+    "baseline": "npx tsx baseline-comparison.ts",
+    "llm": "npx tsx llm-comparison.ts",
+    "latency": "npx tsx latency.ts",
+    "throughput": "npx tsx throughput.ts",
+    "robustness": "npx tsx robustness.ts",
+    "confidence": "npx tsx confidence-calibration.ts",
+    "prompt": "npx tsx prompt-eval.ts",
+    "stress": "npx tsx stress-test.ts",
+    "ablation": "npx tsx component-ablation.ts",
+    "regression": "npx tsx regression.ts"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0"
+  }
+}

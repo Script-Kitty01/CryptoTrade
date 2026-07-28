@@ -1,0 +1,154 @@
+{
+  "name": "stress-test",
+  "timestamp": "2026-07-28T11:17:34.046Z",
+  "category": "Stress Test",
+  "summary": {
+    "bestRegime": "Flash Crash",
+    "worstRegime": "Bear Market",
+    "sharpeStdDev": 7.319522638668259,
+    "regimesTested": 6
+  },
+  "details": {
+    "results": [
+      {
+        "regime": "Bull Market",
+        "description": "Sustained uptrend",
+        "priceChangePct": 52.016264321248606,
+        "metrics": {
+          "totalReturn": -292.27783892322464,
+          "totalReturnPct": -2.922778389232246,
+          "winRate": 0.4444444444444444,
+          "sharpeRatio": 0.2574857627548115,
+          "sortinoRatio": 0.4277431441113181,
+          "maxDrawdown": 2503.3157476514552,
+          "maxDrawdownPct": 25.03315747651455,
+          "profitFactor": 0.9065588211792502,
+          "avgTradeReturn": -32.47531543591385,
+          "avgTradeReturnPct": 0.1740591530066773,
+          "numTrades": 9,
+          "winningTrades": 4,
+          "losingTrades": 5,
+          "totalProfit": 2835.65614705428,
+          "totalLoss": 3127.9339859775046
+        }
+      },
+      {
+        "regime": "Bear Market",
+        "description": "Sustained downtrend",
+        "priceChangePct": -70.6394847154246,
+        "metrics": {
+          "totalReturn": -3332.4819734024827,
+          "totalReturnPct": -33.32481973402483,
+          "winRate": 0.2857142857142857,
+          "sharpeRatio": -13.470325087335961,
+          "sortinoRatio": -10.477442753675602,
+          "maxDrawdown": 3624.422828446691,
+          "maxDrawdownPct": 36.24422828446691,
+          "profitFactor": 0.14560994575369848,
+          "avgTradeReturn": -476.0688533432118,
+          "avgTradeReturnPct": -5.698120516431513,
+          "numTrades": 7,
+          "winningTrades": 2,
+          "losingTrades": 5,
+          "totalProfit": 567.9402714962187,
+          "totalLoss": 3900.4222448987007
+        }
+      },
+      {
+        "regime": "Flash Crash",
+        "description": "Sharp crash + recovery",
+        "priceChangePct": -62.39192292697211,
+        "metrics": {
+          "totalReturn": 8506.503614537702,
+          "totalReturnPct": 85.06503614537702,
+          "winRate": 0.6666666666666666,
+          "sharpeRatio": 10.618527859998636,
+          "sortinoRatio": 28.41742223386788,
+          "maxDrawdown": 2477.225196384761,
+          "maxDrawdownPct": 24.772251963847612,
+          "profitFactor": 3.323647691240998,
+          "avgTradeReturn": 1417.7506024229504,
+          "avgTradeReturnPct": 13.060090185322915,
+          "numTrades": 6,
+          "winningTrades": 4,
+          "losingTrades": 2,
+          "totalProfit": 12167.344131197353,
+          "totalLoss": 3660.8405166596513
+        }
+      },
+      {
+        "regime": "Sideways",
+        "description": "Low volatility range",
+        "priceChangePct": 29.916270162623647,
+        "metrics": {
+          "totalReturn": 1500.1106666047838,
+          "totalReturnPct": 15.001106666047836,
+          "winRate": 0.5,
+          "sharpeRatio": 5.312474978070781,
+          "sortinoRatio": 16.119862164353894,
+          "maxDrawdown": 788.2760103074925,
+          "maxDrawdownPct": 7.882760103074925,
+          "profitFactor": 2.6866674101328196,
+          "avgTradeReturn": 187.51383332559797,
+          "avgTradeReturnPct": 2.017085767578009,
+          "numTrades": 8,
+          "winningTrades": 4,
+          "losingTrades": 4,
+          "totalProfit": 2389.5039504215706,
+          "totalLoss": 889.3932838167868
+        }
+      },
+      {
+        "regime": "High Volatility",
+        "description": "Large price swings",
+        "priceChangePct": 81.75330472963574,
+        "metrics": {
+          "totalReturn": -894.151128936272,
+          "totalReturnPct": -8.94151128936272,
+          "winRate": 0.4166666666666667,
+          "sharpeRatio": 1.5411273631930893,
+          "sortinoRatio": 3.0346353949609925,
+          "maxDrawdown": 5945.2035315694775,
+          "maxDrawdownPct": 59.45203531569477,
+          "profitFactor": 0.894922423176756,
+          "avgTradeReturn": -74.51259407802267,
+          "avgTradeReturnPct": 2.9502357070312946,
+          "numTrades": 12,
+          "winningTrades": 5,
+          "losingTrades": 7,
+          "totalProfit": 7615.286906929039,
+          "totalLoss": 8509.43803586531
+        }
+      },
+      {
+        "regime": "Low Volatility",
+        "description": "Minimal movement",
+        "priceChangePct": 0.86390789454564,
+        "metrics": {
+          "totalReturn": -28.07735376731017,
+          "totalReturnPct": -0.2807735376731017,
+          "winRate": 0.3333333333333333,
+          "sharpeRatio": 0.34483513445488484,
+          "sortinoRatio": 0.6756048257481313,
+          "maxDrawdown": 1691.2057219371782,
+          "maxDrawdownPct": 16.912057219371782,
+          "profitFactor": 0.9865898609634397,
+          "avgTradeReturn": -3.1197059741455746,
+          "avgTradeReturnPct": 0.13070288511989425,
+          "numTrades": 9,
+          "winningTrades": 3,
+          "losingTrades": 6,
+          "totalProfit": 2065.663336822256,
+          "totalLoss": 2093.740690589566
+        }
+      }
+    ],
+    "config": {
+      "candles": 400,
+      "lookback": 60,
+      "forwardWindow": 5,
+      "initialCapital": 10000,
+      "positionSize": 0.95
+    }
+  }
+}
